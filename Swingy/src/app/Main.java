@@ -14,7 +14,7 @@ public class Main  extends JFrame {
     JTextArea ta = new JTextArea("BRUH \nTHIS \n IS \n LIT ");
 
 	public static void main(String[] args) throws Exception {
-        //Maybe rename later in case of refferance
+        //Maybe rename later in case of reference
         new Main();
         System.out.println("Hello Java");
     }
