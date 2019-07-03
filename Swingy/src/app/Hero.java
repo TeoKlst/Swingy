@@ -5,6 +5,7 @@ public class Hero {
     protected String        Class;
     protected int           Level;
     protected int           Experience;
+    protected int           ExperienceCap;
     protected int           Attack;
     protected int           Defense;
     protected int           HitPoints;
@@ -13,12 +14,13 @@ public class Hero {
     protected int           BleedDmg;
     protected Coordinates   Coordinates;
 
-    protected Hero(String Name, String Class, int Level, int Experience, int Attack, int Defense, int HitPoints,
+    protected Hero(String Name, String Class, int Level, int Experience, int ExperienceCap,int Attack, int Defense, int HitPoints,
             int CritChance, int MagicDmg, int BleedDmg ,Coordinates Coordinates) {
         this.Name = Name;
         this.Class = Class;
         this.Level = Level;
         this.Experience = Experience;
+        this.ExperienceCap = ExperienceCap;
         this.Attack = Attack;
         this.Defense = Defense;
         this.HitPoints = HitPoints;
@@ -27,6 +29,11 @@ public class Hero {
         this.BleedDmg = BleedDmg;
         this.Coordinates = Coordinates;
     }
+
+    public int getHeroLeveL() {
+        return this.Level;
+    }
+
 
     public void CreateHero() {
         if (Class.equals("Assasin")) {

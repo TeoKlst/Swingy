@@ -5,12 +5,12 @@ import app.Hero;
 import app.Map;
 
 class Weapon extends Artifact {
-    private Map Map;
 
-    protected Weapon(String Rarity, int Attack, int Defense, int HitPoints) {
-        super(Rarity, Attack, Defense, HitPoints);
-        // TODO Auto-generated constructor stub
+    protected Weapon(String Name, String Rarity, int Attack, int Defense, int HitPoints) {
+        super(Name, Rarity, Attack, Defense, HitPoints);
     }
+
+    private Map Map;
 
     public void RaritySet() {
         int mapLevel = Map.GetMapLevel();

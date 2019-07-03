@@ -1,20 +1,28 @@
 package app;
 
+import app.Hero;
+import app.Villains;
+
 public class Map {
-    protected int   MapLevel;
-    protected int   MapSize;
+    protected String    MapLayout[];
+    protected int       MapLevel;
+    protected int       MapSize;
+
+    Hero        hero;
+    Villains    villains;
+
 
     protected Map(int MapLevel, int MapSize) {
         this.MapLevel = MapLevel;
         this.MapSize = MapSize;
     }
 
-    public void MapGeneration() {
-        
-        MapSize = (MapLevel - 1) * 5 + 10 - (MapLevel % 2);
+    public int getMapLevel() {
+        return this.MapLevel = hero.getHeroLeveL();
     }
 
-    public int GetMapLevel() {
-        return this.MapLevel;
+    public void mapGeneration() {
+        this.MapSize = (getMapLevel() - 1) * 5 + 10 - (getMapLevel() % 2);
+        
     }
 }
