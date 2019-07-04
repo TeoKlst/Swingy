@@ -12,12 +12,12 @@ class Weapon extends Artifact {
 
     private Map Map;
 
-    public void raritySet() {
+    public void RaritySet() {
         int mapLevel = Map.getMapLevel();
         // int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
-    public void attackStats() {
+    public void AttackStats() {
         int min;
         int max;
         int mapLevel = Map.getMapLevel();

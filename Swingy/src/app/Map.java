@@ -24,10 +24,10 @@ public class Map {
     public int getMapSize() {
         return this.MapSize;
     }
-
+    
     public void mapGeneration() {
         this.MapSize = (getMapLevel() - 1) * 5 + 10 - (getMapLevel() % 2);
-        int MapLayout[][] = new int[this.MapSize][this.MapSize];
+                int MapLayout[][] = new int[this.MapSize][this.MapSize];
     }
 }
 class Main2 {
