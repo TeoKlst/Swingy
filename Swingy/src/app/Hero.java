@@ -71,13 +71,6 @@ public class Hero {
         //Looses = GameOver
     }
 
-    public void MoveMent(String Direction) {
-        if (Direction.equals("North")) {}
-        else if (Direction.equals("East")) {}
-        else if (Direction.equals("South")) {}
-        else if (Direction.equals("West")) {}
-    }
-
     public void LevelUp() {
         if (Experience >= (Level * 1000 + ((Level - 1) * (Level - 1)) * 450))
             Level = Level + 1;

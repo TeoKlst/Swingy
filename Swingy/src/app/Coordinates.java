@@ -4,7 +4,7 @@ public class Coordinates {
     protected int X;
     protected int Y;
 
-    protected Coordinates(int X, int Y) {
+    Coordinates(int X, int Y) {
         this.X = X;
         this.Y = Y;
     }

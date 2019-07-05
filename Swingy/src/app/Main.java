@@ -1,12 +1,15 @@
 package app;
 
+import app.Movement;
+
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
-
+// Swing Imports
 import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -17,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 
 public class Main  extends JFrame {
@@ -39,7 +43,7 @@ public class Main  extends JFrame {
     JTextField txtLeft = new JTextField(10);
     JTextField txtRight = new JTextField(10);
 
-    JButton btnBottom = new JButton("Spawn Window");
+    JButton btnBottom = new JButton("Fun Button");
 
     JTextArea txtConsole = new JTextArea(5, 10);
 
@@ -59,6 +63,9 @@ public class Main  extends JFrame {
 
     private class Actionlistener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            // int i = 1;
+            // while(i == 1){
+            Toolkit.getDefaultToolkit().beep();
             JFrame frame2 = new JFrame("Was Clicked");
             frame2.setSize(200,50);
             frame2.setVisible(true);
@@ -68,6 +75,7 @@ public class Main  extends JFrame {
             JPanel panel = new JPanel();
             frame2.add(panel);
             panel.add(label);
+            // }
         }
     }
 
@@ -122,10 +130,11 @@ public class Main  extends JFrame {
 
         panConsole.add(scrPane, BorderLayout.CENTER);
 
+        // panOuter.getInputMap().put(KeyStroke.getKeyStroke("F2"),"doSomething");
+        // component.getActionMap().put("doSomething",anAction);
+
         setContentPane(panOuter);
         pack();
         setVisible(true);
-
-        // add(panOuter);
     }
 }
