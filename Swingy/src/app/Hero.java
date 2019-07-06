@@ -1,18 +1,20 @@
 package app;
 
+import java.util.Scanner;
+
 public class Hero {
-    protected String        Name;
-    protected String        Class;
-    protected int           Level;
-    protected int           Experience;
-    protected int           ExperienceCap;
-    protected int           Attack;
-    protected int           Defense;
-    protected int           HitPoints;
-    protected int           CritChance;
-    protected int           MagicDmg;
-    protected int           BleedDmg;
-    protected Coordinates   Coordinates;
+    protected static String        Name;
+    protected static String        Class;
+    protected static int           Level;
+    protected static int           Experience;
+    protected static int           ExperienceCap;
+    protected static int           Attack;
+    protected static int           Defense;
+    protected static int           HitPoints;
+    protected static int           CritChance;
+    protected static int           MagicDmg;
+    protected static int           BleedDmg;
+    protected static Coordinates   Coordinates;
 
     protected Hero(String Name, String Class, int Level, int Experience, int ExperienceCap,int Attack, int Defense, int HitPoints,
             int CritChance, int MagicDmg, int BleedDmg ,Coordinates Coordinates) {
@@ -30,21 +32,47 @@ public class Hero {
         this.Coordinates = Coordinates;
     }
 
+    static Scanner console = new Scanner(System.in);
+
     public int getHeroLeveL() {
         return this.Level;
     }
 
+    static public int getCoordX() {
+        int x = 2;
+        return (x);
+    }
 
-    public void CreateHero() {
+    static public int getCoordY() {
+        int y = 2;
+        return (y);
+    }
+
+    static public void CreateHero() {
+        System.out.println("Select your hero's name:");
+        Name = console.nextLine();
+        System.out.println("Choose your hero's class:");
+        Class = console.nextLine();
+        Level = 1;
+        Experience = 0;
+        ExperienceCap = 10;
         if (Class.equals("Assasin")) {
             CritChance = 20;
+            BleedDmg = 0;
+            MagicDmg = 0;
         }
         else if (Class.equals("Warrior")) {
-            BleedDmg = 1;
+            BleedDmg = 0;
+            CritChance = 20;
+            MagicDmg = 0;
         }
         else if (Class.equals("Mage")) {
             MagicDmg = 1;
+            CritChance = 0;
+            BleedDmg = 0;
         }
+        new Hero(Name, Class, Level, Experience, ExperienceCap, Attack, Defense, HitPoints, CritChance, MagicDmg, BleedDmg, Coordinates);
+        System.out.println("Your " + Class + " " + Name + " has been created!");
     }
 
     public void DieHero() {

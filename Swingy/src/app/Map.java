@@ -7,15 +7,17 @@ import java.util.Scanner;
 import app.Hero;
 import app.Villains;
 import app.Actions;
+import app.Coordinates;
 
 public class Map {
-    protected static int       MapLayout;
-    protected int       MapLevel;
+    protected static int       MapLayout[][];
+    protected int              MapLevel;
     protected static int       MapSize;
     protected static String    Direction;
 
     Hero        hero;
     Villains    villains;
+    Coordinates coordinates;
 
     protected Map(int MapLevel, int MapSize) {
         this.MapLevel = MapLevel;
@@ -33,12 +35,17 @@ public class Map {
     static public void mapGeneration() {
         // this.MapSize = (getMapLevel() - 1) * 5 + 10 - (getMapLevel() % 2);
         MapSize = 5;
-        int MapLayout[][] = new int[MapSize][MapSize];
-        System.out.println(Arrays.deepToString(MapLayout).replace("], ", "]\n").replace("[[", "[").replace("]]", "]").replace(", ", " "));
+        // Coordinates MapLayout[][]  = new Coordinates[MapSize][MapSize];
+        MapLayout = new int[MapSize][MapSize];
+        // MapLayout[2][2] = 1;
     }
 
-    public static void assignHero(Coordinates coordinates) {
-        
+    static public void mapDisplay() {
+        System.out.println(Arrays.deepToString(MapLayout).replace("], ", "]\n").replace("[[", "[").replace("]]", "]").replace(", ", " ").replace("1", "P").replace("2", "M"));
+    }
+
+    static public void assignHero(int X, int Y) {
+        MapLayout[X][Y] = 1;
     }
 
     public void keyPressed(KeyEvent e) {
@@ -69,25 +76,26 @@ class Main2 {
 
     public static void SwingRun() {
         new Thread(new Runnable() {
-        Hero Brent = new Hero("Dude", "Assasin", 2, 5, 10, 5, 5, 5, 5, 5, 5, coordinates);
+        // Hero Brent = new Hero("Dude", "Assasin", 2, 5, 10, 5, 5, 5, 5, 5, 5, coordinates);
             @Override
             public void run() {
                 while (true) {
-                    Map.mapGeneration();
+                    Map.mapDisplay();
                     System.out.print("Choose Direction: ");
                     System.out.println("Left, Right, Up or Down.");
                     Map.Direction = console.nextLine();
-                    Map.assignHero(Brent.Coordinates);
+                    // Map.assignHero(Brent.Coordinates);
                     Actions.menuActions();
                     Actions.heroActions();
                     Actions.heroMovement();
-                    System.out.println(Map.Direction);
-                    System.out.println("Finished");
                 }
             }
         }).start();
     }
     public static void main(String[] args) throws Exception {
+        Hero.CreateHero();
+        Map.mapGeneration();
+        Map.assignHero(Hero.getCoordX(), Hero.getCoordY());
         SwingRun();
     }
 }

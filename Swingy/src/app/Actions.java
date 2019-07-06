@@ -8,8 +8,11 @@ public class Actions {
     static Hero hero;
 
     public static void heroMovement() {
-        if("up".equals(map.Direction.toLowerCase()))
+        if("up".equals(map.Direction.toLowerCase())) {
             System.out.println("Up Pressed");
+            // Hero.getCoordY() = Hero.getCoordY + 1;
+            Map.MapLayout[1][1] = 2;
+        }
         if("right".equals(map.Direction.toLowerCase()))
             System.out.println("Right Pressed");
         if("down".equals(map.Direction.toLowerCase()))
