@@ -68,11 +68,12 @@ public class Hero {
         Class = console.nextLine().toLowerCase();
         System.out.println(Class);
         //Fix later
-        // while (Class.equals("assasin") || Class.equals("warrior") || Class.equals("mage")) {
-        //     System.out.println("Incorrect class, please try again.");
-        //     Class = console.nextLine().toLowerCase();
-        //     System.out.println(Class);
-        // }
+        while ("assasin" != Class.intern() && "warrior" != Class.intern()
+                    && "mage" != Class.intern() && "hacker" != Class.intern()) {
+            System.out.println("Incorrect class, please try again.");
+            Class = console.nextLine().toLowerCase();
+            System.out.println(Class);
+        }
         Level = 1;
         Experience = 0;
         ExperienceCap = (Level * 1000 + ((Level - 1) * (Level - 1)) * 450);
@@ -82,14 +83,20 @@ public class Hero {
             MagicDmg = 0;
         }
         else if ("warrior".equals(Class)) {
-            BleedDmg = 0;
-            CritChance = 20;
+            BleedDmg = 1;
+            CritChance = 0;
             MagicDmg = 0;
         }
         else if ("mage".equals(Class)) {
             MagicDmg = 1;
             CritChance = 0;
             BleedDmg = 0;
+        }
+        else if ("hacker".equals(Class)) {
+            MagicDmg = 10;
+            CritChance = 100;
+            BleedDmg = 10;
+            System.out.println("W0W You are a hacker! \n... cheeky cu#*");
         }
         new Hero(Name, Class, Level, Experience, ExperienceCap, Attack, Defense, HitPoints, CritChance, MagicDmg, BleedDmg, Coordinates);
         System.out.println("Your " + Class + " " + Name + " has been created!");

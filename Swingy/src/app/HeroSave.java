@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -17,9 +18,9 @@ public class HeroSave {
     static Scanner console = new Scanner(System.in);
     protected static String chosenHero;
     
-    public static void saveHero() throws FileNotFoundException {
+    public static void saveHero() throws IOException {
         File outputFile = new File("HeroSave.txt");
-        pr = new PrintWriter(outputFile);
+        pr = new PrintWriter(new FileWriter(outputFile, true));
         pr.println("Arthas");
         pr.close();
         System.out.println("Hero saved successfully!");
