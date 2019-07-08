@@ -1,4 +1,5 @@
 package app.artifacts;
+
 import java.util.concurrent.ThreadLocalRandom;
 import app.Artifact;
 import app.Hero;

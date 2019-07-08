@@ -14,4 +14,8 @@ public class Artifact {
         this.Defense = Defense;
         this.HitPoints = HitPoints;
     }
+
+    static public void createArtifact() {
+        
+    }
 }
