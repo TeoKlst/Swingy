@@ -51,7 +51,7 @@ public class HeroSave {
             String[] parts = st.split("\\s+");
             sb.append(st);
             sb.append("\n");
-            System.out.println("-->" + parts[0] + " " + parts[1] + " " + parts[2]);
+            System.out.println("-->" + parts[0] + " " + parts[1] + " the " + parts[2]);
         }
         br.close();
         System.out.println(" Choose your saved hero!\n(Choose character index)");
@@ -65,6 +65,7 @@ public class HeroSave {
             // Index check
             if (multiplier > parts.length)
                 break;
+            // index = ((index + 1) > parts.length) ?  System.out.println("INDEX TOO LARGE") : index;
             index = index + 1;
         }
         if (successFind) {
