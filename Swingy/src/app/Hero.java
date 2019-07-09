@@ -37,6 +37,8 @@ public class Hero {
 
     static Scanner console = new Scanner(System.in);
 
+	private static Object myHero;
+
     public static void addHero() {
         listHero.add("Hero");
     }
@@ -81,31 +83,54 @@ public class Hero {
             CritChance = 20;
             BleedDmg = 0;
             MagicDmg = 0;
+            Attack = 3;
+            Defense = 1;
+            HitPoints = 10;
         }
         else if ("warrior".equals(Class)) {
             BleedDmg = 1;
             CritChance = 0;
             MagicDmg = 0;
+            Attack = 2;
+            Defense = 5;
+            HitPoints = 20;
         }
         else if ("mage".equals(Class)) {
             MagicDmg = 1;
             CritChance = 0;
             BleedDmg = 0;
+            Attack = 4;
+            Defense = 2;
+            HitPoints = 5;
         }
         else if ("hacker".equals(Class)) {
             MagicDmg = 10;
             CritChance = 100;
             BleedDmg = 10;
+            Attack = 10;
+            Defense = 10;
+            HitPoints = 100;
             System.out.println("W0W You are a hacker! \n... cheeky cu#*");
         }
-        new Hero(Name, Class, Level, Experience, ExperienceCap, Attack, Defense, HitPoints, CritChance, MagicDmg, BleedDmg, Coordinates);
-        System.out.println("Your " + Class + " " + Name + " has been created!");
+        myHero = new Hero(Name, Class, Level, Experience, ExperienceCap, Attack, Defense, HitPoints, CritChance, MagicDmg, BleedDmg, Coordinates);
+        System.out.println(Name + " the " + Class + " has been teleported to the fantasy realm!");
         System.out.println("Your Stats:" + "\nLevel:" + Level + "\nExperience:" + Experience  + "\nExperienceCap:" + ExperienceCap +
         "\nAttack:" + Attack + "\nDefense:" + Defense + "\nHitPoints" + HitPoints + 
         "\nCritChance:" + CritChance + "\nMagicDmg" + MagicDmg + "\nBleedDmg" + BleedDmg);
     }
 
-    public void DieHero() {
+    public static String heroPrintable() {
+       String heroData;
+       return heroData = Name + " " + Class + " "  + Level + " "  + Experience + " " 
+        + ExperienceCap + " "  + Attack + " " + Defense + " " + HitPoints + " " 
+        + CritChance + " " + MagicDmg + " " + BleedDmg;
+    }
+
+    public static void heroLoadable() {
+        
+    }
+
+    public void heroDie() {
         // Deletes Hero || Sends to load screen
         // Maybe try hardcore mode
     }

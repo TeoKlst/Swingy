@@ -100,6 +100,7 @@ class Main2 {
         }).start();
     }
     public static void main(String[] args) throws Exception {
+        // Load or Start New Game
         Hero.CreateHero();
         Map.mapGeneration();
         Map.assignHero(Hero.getCoordX(), Hero.getCoordY());

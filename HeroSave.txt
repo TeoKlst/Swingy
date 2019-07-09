@@ -1,3 +1,7 @@
-Arthas
-Arthas
-Arthas
+1 Teo mage 1 0 1000 4 2 5 0 1 0
+2 Teo mage 1 0 1000 4 2 5 0 1 0
+3 test mage 1 0 1000 4 2 5 0 1 0
+4 Teo hacker 1 0 1000 10 10 100 100 10 10
+5 Phil assasin 1 0 1000 3 1 10 20 0 0
+6 Xeno hacker 1 0 1000 10 10 100 100 10 10
+7 Teo warrior 1 0 1000 2 5 20 0 0 1
