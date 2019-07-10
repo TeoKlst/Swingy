@@ -26,7 +26,7 @@ public class Map {
     }
 
     public static int getMapLevel() {
-        return MapLevel = Hero.getHeroLeveL();
+        return MapLevel = Hero.getHeroLevel();
     }
 
     public int getMapSize() {
@@ -34,8 +34,8 @@ public class Map {
     }
 
     public static void mapGeneration() {
-        // this.MapSize = (getMapLevel() - 1) * 5 + 10 - (getMapLevel() % 2);
-        MapSize = 5;
+        MapSize = (getMapLevel() - 1) * 5 + 10 - (getMapLevel() % 2);
+        // MapSize = 5;
         // Coordinates MapLayout[][] = new Coordinates[MapSize][MapSize];
         MapLayout = new int[MapSize][MapSize];
         // MapLayout[2][2] = 1;
@@ -69,6 +69,12 @@ public class Map {
     }
     // addKeyListener(new Movement(this));
     // Map.@addKeyListener(new Movement (this);
+    
+    public static void mapEndReach() {
+        //Checks if map end is reached
+        //Gives XP on clear
+        //Regenerates map again
+    }
 }
 
 class Main2 {
@@ -101,7 +107,12 @@ class Main2 {
     }
     public static void main(String[] args) throws Exception {
         // Load or Start New Game
-        Hero.CreateHero();
+        Menu.menuSelection();
+        if (Menu.CL == true) {
+            Hero.createHero();
+        }
+        else
+            HeroSave.loadHero();
         Map.mapGeneration();
         Map.assignHero(Hero.getCoordX(), Hero.getCoordY());
         SwingRun();

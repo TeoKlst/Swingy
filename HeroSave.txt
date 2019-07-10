@@ -5,3 +5,6 @@
 5 Phil assasin 1 0 1000 3 1 10 20 0 0
 6 Xeno hacker 1 0 1000 10 10 100 100 10 10
 7 Teo warrior 1 0 1000 2 5 20 0 0 1
+8 Teo mage 1 0 1000 4 2 5 0 1 0
+9 Teo mage 2 0 1000 4 2 5 0 1 0
+10 Test mage 1 0 1000 4 2 5 0 1 0

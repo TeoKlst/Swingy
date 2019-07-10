@@ -63,14 +63,15 @@ public class HeroSave {
                 successFind = true;
             }
             // Index check
-            if (multiplier > parts.length)
-                break;
-            // index = ((index + 1) > parts.length) ?  System.out.println("INDEX TOO LARGE") : index;
+            // index = ((index + 1) > (parts.length / 12)) ?  parts.length : index + 1;
             index = index + 1;
         }
         if (successFind) {
-            System.out.println("Hero loaded successfully!");
             //Grabs Hero Information
+            Hero.loadHero(chosenHero, chosenHero, index, index, index, index, index, index, index, index);
+            //Set hero with this info
+            System.out.println("Hero loaded successfully!");
+            
         }
         else {
             System.out.println("Hero doesn't exist or incorrect id chosen.");

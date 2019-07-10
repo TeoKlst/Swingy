@@ -43,7 +43,7 @@ public class Hero {
         listHero.add("Hero");
     }
 
-    public static int getHeroLeveL() {
+    public static int getHeroLevel() {
         return Level;
     }
 
@@ -63,7 +63,7 @@ public class Hero {
         "\nCritChance:" + CritChance + "\nMagicDmg" + MagicDmg + "\nBleedDmg" + BleedDmg);
     }
 
-    public static void CreateHero() {
+    public static void createHero() {
         System.out.println("Select your hero's name:");
         Name = console.nextLine();
         System.out.println("Choose your hero's class: Warrior, Assasin, Mage");
@@ -117,6 +117,22 @@ public class Hero {
         System.out.println("Your Stats:" + "\nLevel:" + Level + "\nExperience:" + Experience  + "\nExperienceCap:" + ExperienceCap +
         "\nAttack:" + Attack + "\nDefense:" + Defense + "\nHitPoints" + HitPoints + 
         "\nCritChance:" + CritChance + "\nMagicDmg" + MagicDmg + "\nBleedDmg" + BleedDmg);
+    }
+
+    public static void loadHero(String name, String heroclass, int level, int experience,
+            int attack, int defense, int hitPoints ,
+            int critChance, int magicDmg, int bleedDmg) {
+        Name = name;
+        Class =  heroclass;
+        Level = level;
+        Experience = experience;
+        ExperienceCap = (Level * 1000 + ((Level - 1) * (Level - 1)) * 450);
+        CritChance = critChance;
+        BleedDmg = bleedDmg;
+        MagicDmg = magicDmg;
+        Attack = attack;
+        Defense = defense;
+        HitPoints = hitPoints;
     }
 
     public static String heroPrintable() {

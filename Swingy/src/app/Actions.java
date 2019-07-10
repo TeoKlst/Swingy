@@ -31,6 +31,8 @@ public class Actions {
             System.out.println("Run Pressed");
         if ("stats".equals(map.Direction.toLowerCase()))
             Hero.getStats();
+        if ("equip".equals(map.Direction.toLowerCase()))
+            Hero.getStats();
     }
 
     public static void menuActions() throws IOException {
