@@ -8,13 +8,13 @@ import java.util.concurrent.ThreadLocalRandom;
 import app.Map;
 
 public class Villains {
-    protected String        Name;
-    protected String        Title;
-    protected int           Level;
-    protected int           ExpAmount;
-    protected int           Attack;
-    protected int           Defense;
-    protected int           HitPoints;
+    protected static String        Name;
+    protected static String        Title;
+    protected static int           Level;
+    protected static int           ExpAmount;
+    protected static int           Attack;
+    protected static int           Defense;
+    protected static int           HitPoints;
     protected Coordinates   Coordinates;
     static List<String> listName = new ArrayList<String>();
     static List<String> listTitle = new ArrayList<String>();
@@ -53,20 +53,35 @@ public class Villains {
         return random;
     }
 
-    public void villainStats() {
+    public static int getHitPoints() {
+        return HitPoints;
+    }
+    
+    public static void villainStats() {
         int min = 1;
-        int max = this.Level;
+        int max = Level;
         int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
         Name = getName();
         Title = getTitle();
         Level = (Map.getMapLevel() == 1) ? 1 : (Map.getMapLevel() + 1);
-        ExpAmount = this.Level * 150;
+        ExpAmount = Level * 150;
         Attack = randomNum + 1;
         Defense = randomNum = ThreadLocalRandom.current().nextInt(0, 5);;
         HitPoints = randomNum + 10;
     }
 
-    public void villainGenerate() {
+    public static void villainGenerate() {
+        int i = 0;
+        int mapDistance = Map.getMapSize();
+        int mapArea = mapDistance * mapDistance;
+        int maxMonsterPlacement = (mapArea / 3);
+        while (i < maxMonsterPlacement) {
+            int randomNumX = ThreadLocalRandom.current().nextInt(0, mapDistance);
+            int randomNumY = ThreadLocalRandom.current().nextInt(0, mapDistance);
+            Map.assignMonster(randomNumX, randomNumY);
+            i++;
+        }
+
         //create villain
         //  villainStats();
     }

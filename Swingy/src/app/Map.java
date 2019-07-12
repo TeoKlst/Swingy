@@ -29,12 +29,12 @@ public class Map {
         return MapLevel = Hero.getHeroLevel();
     }
 
-    public int getMapSize() {
-        return this.MapSize;
+    public static int getMapSize() {
+        return MapSize = (getMapLevel() - 1) * 5 + 10 - (getMapLevel() % 2);
     }
 
     public static void mapGeneration() {
-        MapSize = (getMapLevel() - 1) * 5 + 10 - (getMapLevel() % 2);
+        MapSize = getMapSize();
         // MapSize = 5;
         // Coordinates MapLayout[][] = new Coordinates[MapSize][MapSize];
         MapLayout = new int[MapSize][MapSize];
@@ -43,10 +43,26 @@ public class Map {
 
     public static void mapDisplay() {
         System.out.println(Arrays.deepToString(MapLayout).replace("], ", "]\n").replace("[[", "[").replace("]]", "]")
-                .replace(", ", " ").replace("1", "P").replace("2", "M"));
+                .replace(", ", " ").replace("1", "P").replace("2", "M").replace("0", "-"));
     }
 
     public static void assignHero(int X, int Y) {
+        MapLayout[X][Y] = 1;
+    }
+
+    public static void unAssignHero(int X, int Y) {
+        MapLayout[X][Y] = 0;
+    }
+
+    public static void assignMonster(int X, int Y) {
+        MapLayout[X][Y] = 2;
+    }
+
+    public static void assignHeroCL() {
+        int X = (getMapSize() / 2);
+        int Y = (getMapSize() / 2);
+        Hero.x = X;
+        Hero.y = Y;
         MapLayout[X][Y] = 1;
     }
 
@@ -88,7 +104,7 @@ class Main2 {
             // coordinates);
             @Override
             public void run() {
-                while (true) {
+                while (Menu.GameState) {
                     Map.mapDisplay();
                     System.out.print("Choose Direction: ");
                     System.out.println("Left, Right, Up or Down.");
@@ -101,6 +117,7 @@ class Main2 {
                     }
                     Actions.heroActions();
                     Actions.heroMovement();
+                    Map.assignHero(Hero.getCoordX(), Hero.getCoordY());
                 }
             }
         }).start();
@@ -110,11 +127,13 @@ class Main2 {
         Menu.menuSelection();
         if (Menu.CL == true) {
             Hero.createHero();
+            Map.mapGeneration();
+            Map.assignHeroCL();
         }
-        else
+        else {
             HeroSave.loadHero();
-        Map.mapGeneration();
-        Map.assignHero(Hero.getCoordX(), Hero.getCoordY());
+            Map.assignHeroCL();
+        }
         SwingRun();
     }
 }

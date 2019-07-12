@@ -22,7 +22,6 @@ public class HeroSave {
     
     public static void saveHero() throws IOException {
         index = 1;
-        //Reader index
         File inputFile = new File("HeroSave.txt");
         br = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
         while ((st = br.readLine()) != null) {
@@ -54,7 +53,7 @@ public class HeroSave {
             System.out.println("-->" + parts[0] + " " + parts[1] + " the " + parts[2]);
         }
         br.close();
-        System.out.println(" Choose your saved hero!\n(Choose character index)");
+        System.out.println("Choose your saved hero!\n(Choose character index)");
         chosenHero = console.nextLine();
         String[] parts = sb.toString().split("\\s+");
         while (index != Integer.parseInt(chosenHero) + 1) {
@@ -62,16 +61,18 @@ public class HeroSave {
             if (chosenHero.equals(parts[multiplier])) {
                 successFind = true;
             }
-            // Index check
             // index = ((index + 1) > (parts.length / 12)) ?  parts.length : index + 1;
             index = index + 1;
         }
+        //FIX CHARACTER LOAD, LOADS ONE AHEAD
         if (successFind) {
-            //Grabs Hero Information
-            Hero.loadHero(chosenHero, chosenHero, index, index, index, index, index, index, index, index);
-            //Set hero with this info
+            Hero.loadHero(parts[index * 12 - 11], parts[index * 12 - 10], Integer.parseInt(parts[index * 12 - 9]), Integer.parseInt(parts[index * 12 - 8]),
+            Integer.parseInt(parts[index * 12 - 6]), Integer.parseInt(parts[index * 12 - 5]), Integer.parseInt(parts[index * 12 - 4]),
+            Integer.parseInt(parts[index * 12 - 3]), Integer.parseInt(parts[index * 12 - 2]), Integer.parseInt(parts[index * 12 - 1]));
+            Map.mapGeneration();
+            Villains.villainGenerate();
+            Map.assignHeroCL();
             System.out.println("Hero loaded successfully!");
-            
         }
         else {
             System.out.println("Hero doesn't exist or incorrect id chosen.");

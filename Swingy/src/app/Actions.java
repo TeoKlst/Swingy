@@ -13,15 +13,20 @@ public class Actions {
     public static void heroMovement() {
         if ("up".equals(map.Direction.toLowerCase())) {
             System.out.println("Up Pressed");
-            // Hero.getCoordY() = Hero.getCoordY + 1;
-            Map.MapLayout[1][1] = 2;
+            hero.movement();
         }
-        if ("right".equals(map.Direction.toLowerCase()))
+        if ("right".equals(map.Direction.toLowerCase())) {
             System.out.println("Right Pressed");
-        if ("down".equals(map.Direction.toLowerCase()))
+            hero.movement();
+        }
+        if ("down".equals(map.Direction.toLowerCase())) {
             System.out.println("Down Pressed");
-        if ("left".equals(map.Direction.toLowerCase()))
+            hero.movement();
+        }
+        if ("left".equals(map.Direction.toLowerCase())) {
             System.out.println("Left Pressed");
+            hero.movement();
+        }
     }
 
     public static void heroActions() {
@@ -32,20 +37,24 @@ public class Actions {
         if ("stats".equals(map.Direction.toLowerCase()))
             Hero.getStats();
         if ("equip".equals(map.Direction.toLowerCase()))
+            //equip function needed
             Hero.getStats();
     }
 
     public static void menuActions() throws IOException {
-        if("create".equals(map.Direction.toLowerCase()))
-            System.out.println("Create Pressed");
+        if("create".equals(map.Direction.toLowerCase())) {
+            Hero.createHero();
+        }
         if("save".equals(map.Direction.toLowerCase())) {
             HeroSave.saveHero();
         }
         if("load".equals(map.Direction.toLowerCase())) {
             HeroSave.loadHero();
         }
-        if("close".equals(map.Direction.toLowerCase()))
-            System.out.println("Close Pressed");
+        if("close".equals(map.Direction.toLowerCase())) {
+            Menu.closeGame();
+            System.out.println(" -- Game Closed --");
+        }
     }
 
     public static void assignHero(Coordinates coordinates) {
