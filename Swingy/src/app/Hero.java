@@ -83,13 +83,13 @@ public class Hero {
         Level = 1;
         Experience = 0;
         ExperienceCap = (Level * 1000 + ((Level - 1) * (Level - 1)) * 450);
+        HitPoints = Level * 10;
         if ("assasin".equals(Class)) {
             CritChance = 20;
             BleedDmg = 0;
             MagicDmg = 0;
-            Attack = 3;
+            Attack = 5;
             Defense = 1;
-            HitPoints = 10;
         }
         else if ("warrior".equals(Class)) {
             BleedDmg = 1;
@@ -97,15 +97,13 @@ public class Hero {
             MagicDmg = 0;
             Attack = 2;
             Defense = 5;
-            HitPoints = 20;
         }
         else if ("mage".equals(Class)) {
-            MagicDmg = 1;
+            MagicDmg = 3;
             CritChance = 0;
             BleedDmg = 0;
-            Attack = 4;
+            Attack = 1;
             Defense = 2;
-            HitPoints = 5;
         }
         else if ("hacker".equals(Class)) {
             MagicDmg = 10;
@@ -114,7 +112,7 @@ public class Hero {
             Attack = 10;
             Defense = 10;
             HitPoints = 100;
-            System.out.println("W0W You are a hacker! \n... cheeky cu#*");
+            System.out.println("W0W You are a hacker!");
         }
         myHero = new Hero(Name, Class, Level, Experience, ExperienceCap, Attack, Defense, HitPoints, CritChance, MagicDmg, BleedDmg, Coordinates);
         System.out.println(Name + " the " + Class + " has been teleported to the fantasy realm!");
@@ -146,8 +144,9 @@ public class Hero {
     }
 
     public static void heroDie() {
+        System.out.println("You have died!");
+        // Sound.play();
         // Deletes Hero || Sends to load screen
-        // Maybe try hardcore mode
     }
 
     public static boolean choiceFight() {
@@ -172,24 +171,45 @@ public class Hero {
 
     public static void battleOutcome() {
         Villains.villainStats();
-        while (Villains.getHitPoints() >= 0 && HitPoints >= 0) {
-            Villains.HitPoints =- Attack;
-            HitPoints =- Villains.Attack;
+        System.out.println("You have encountered " + Villains.Name + Villains.Title);
+        while (Villains.getHitPoints() > 0 && HitPoints > 0) {
+            //CritChance Ignored
+            Villains.HitPoints = Villains.HitPoints - (((Villains.Defense > Attack) ? 0 : Attack - Villains.Defense) + MagicDmg + BleedDmg);
+            System.out.println("You attacked for " + Attack + " damage!\n" + Villains.Name + Villains.Title + " has " + Villains.HitPoints + " hp left.");
+            if (Villains.getHitPoints() <= 0)
+                break;
+            HitPoints = HitPoints - ((Villains.Attack < Defense) ? 0 : Attack - Villains.Defense);
+            System.out.println(Villains.Name + Villains.Title + " has attacked you for " + Villains.Attack + "\nYou have " + HitPoints + " hp left.");
         }
-        // if (Villain hp <= 0)
-        //     villainDeath();
-        //     levelUp();
-        //  Wins = Gain +Exp && +RandomItem
-        // else
-        //      Looses = GameOver
-        heroDie();
+        if (Villains.getHitPoints() <= 0) {
+            System.out.println("You have killed " + Villains.Name + Villains.Title);
+            Villains.villainDeath();
+        }
+        else {
+            heroDie();
+        }
+    }
+
+    public static void statsLevelUp() {
+        Level = Level + 1;
+        Experience = 0;
+        ExperienceCap = (Level * 1000 + ((Level - 1) * (Level - 1)) * 450);
+        if (Class.equals("assasin"))
+            CritChance = CritChance + 10;
+        if (Class.equals("warrior"))
+            BleedDmg = BleedDmg + 1;
+        if (Class.equals("mage"))
+            MagicDmg = MagicDmg + 2;
+        Attack = Attack + 1;
+        Defense = Defense + 1;
+        HitPoints = Level * 10;
     }
 
     public static void expAdd(int exp) {
         Experience = Experience + exp;
         if (Experience >= ExperienceCap) {
-            Level = Level + 1;
             System.out.println("* * WOOW you level'd up! * *");
+            statsLevelUp();
         }
     }
 

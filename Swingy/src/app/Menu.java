@@ -34,6 +34,7 @@ public class Menu {
         //Create new map
         System.out.println("- New Round -");
         Map.mapGeneration();
+        Villains.villainGenerate();
         Map.assignHeroCL();
     }
 }

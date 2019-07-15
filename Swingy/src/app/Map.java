@@ -123,11 +123,11 @@ class Main2 {
         }).start();
     }
     public static void main(String[] args) throws Exception {
-        // Load or Start New Game
         Menu.menuSelection();
         if (Menu.CL == true) {
             Hero.createHero();
             Map.mapGeneration();
+            Villains.villainGenerate();
             Map.assignHeroCL();
         }
         else {

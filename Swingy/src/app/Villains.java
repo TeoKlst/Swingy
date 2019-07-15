@@ -3,6 +3,7 @@ package app;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 import app.Map;
@@ -11,18 +12,18 @@ public class Villains {
     protected static String        Name;
     protected static String        Title;
     protected static int           Level;
-    protected static int           ExpAmount;
     protected static int           Attack;
     protected static int           Defense;
     protected static int           HitPoints;
     protected Coordinates   Coordinates;
     static List<String> listName = new ArrayList<String>();
     static List<String> listTitle = new ArrayList<String>();
+    static Scanner console = new Scanner(System.in);
+    protected static String choice;
 
-    protected Villains(String Name, int Level, int ExpAmount, int Attack, int Defense, int HitPoints, Coordinates Coordinates) {
+    protected Villains(String Name, int Level, int Attack, int Defense, int HitPoints, Coordinates Coordinates) {
         this.Name = Name;
         this.Level = Level;
-        this.ExpAmount = ExpAmount;
         this.Attack = Attack;
         this.Defense = Defense;
         this.HitPoints = HitPoints;
@@ -42,13 +43,13 @@ public class Villains {
     }
 
     public static String getTitle() {
-        listTitle.add("the Great");
-        listTitle.add("the Orc");
-        listTitle.add("the Ham");
-        listTitle.add("the 'I have existential crisis Orc'");
-        listTitle.add("the Goblin");
-        listTitle.add("the Mage");
-        listTitle.add("the Developer");
+        listTitle.add(" the Great");
+        listTitle.add(" the Orc");
+        listTitle.add(" the Ham");
+        listTitle.add(" the 'I have existential crisis Orc'");
+        listTitle.add(" the Goblin");
+        listTitle.add(" the Mage");
+        listTitle.add(" the Developer");
         String random = listTitle.get(new Random().nextInt(listTitle.size()));
         return random;
     }
@@ -59,15 +60,14 @@ public class Villains {
     
     public static void villainStats() {
         int min = 1;
-        int max = Level;
+        int max = Hero.getHeroLevel();
         int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
         Name = getName();
         Title = getTitle();
         Level = (Map.getMapLevel() == 1) ? 1 : (Map.getMapLevel() + 1);
-        ExpAmount = Level * 150;
         Attack = randomNum + 1;
         Defense = randomNum = ThreadLocalRandom.current().nextInt(0, 5);;
-        HitPoints = randomNum + 10;
+        HitPoints = 8;
     }
 
     public static void villainGenerate() {
@@ -87,17 +87,26 @@ public class Villains {
     }
 
     /*  50% drop rate  */
-    public boolean itemDropRate() {
+    public static boolean itemDropRate() {
         boolean OutCome =  Math.random() < 0.5;
         return OutCome;   
     }
 
-    public void villainDeath() {
+    public static void villainDeath() {
         if (itemDropRate()) {
             Artifact.createArtifact();
-            //Attach Artifact
+            System.out.println("The enemy droped a " + "\nEquip or drop the artifact");
+            choice = console.nextLine().toLowerCase();
+            while ("equip" != choice.intern() && "drop" != choice.intern()) {
+                    System.out.println("Incorrect action!\nEquip or drop the artifact");
+                    choice = console.nextLine().toLowerCase();
+            }
+            if ("equip".equals(choice)) {
+                //Attach Artifact
+            }
+            else
+                System.out.println("You have droped the artifact.");
         }
-        //Destroy and remove villain from map
-        //Give Hero Exp accordibg to villain lvl Exp = Exp + ExpAmount
+        Hero.expAdd(250 * Level);
     }
 }
