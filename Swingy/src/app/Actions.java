@@ -50,7 +50,6 @@ public class Actions {
         }
         if("close".equals(Map.Direction.toLowerCase())) {
             Menu.closeGame();
-            System.out.println(" -- Game Closed --");
         }
     }
 

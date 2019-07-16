@@ -76,14 +76,11 @@ public class Villains {
         int mapArea = mapDistance * mapDistance;
         int maxMonsterPlacement = (mapArea / 3);
         while (i < maxMonsterPlacement) {
-            int randomNumX = ThreadLocalRandom.current().nextInt(0, mapDistance);
-            int randomNumY = ThreadLocalRandom.current().nextInt(0, mapDistance);
+            int randomNumX = ThreadLocalRandom.current().nextInt(0, (mapDistance));
+            int randomNumY = ThreadLocalRandom.current().nextInt(0, (mapDistance));
             Map.assignMonster(randomNumX, randomNumY);
             i++;
         }
-
-        //create villain
-        //  villainStats();
     }
 
     /*  50% drop rate  */
@@ -92,18 +89,20 @@ public class Villains {
         return OutCome;   
     }
 
+    //CALL IN RE-SAVE STATS SOMEWHERE
     public static void villainDeath() {
         if (itemDropRate()) {
             Artifact.createArtifact();
-            System.out.println("The enemy droped a " + "\nEquip or drop the artifact");
+            System.out.println("The enemy droped a " + Artifact.Rarity + " " +
+            Artifact.Name + " " + Artifact.Type + "\nEquip or drop the artifact");
+            Artifact.getArtifactStats();
             choice = console.nextLine().toLowerCase();
             while ("equip" != choice.intern() && "drop" != choice.intern()) {
                     System.out.println("Incorrect action!\nEquip or drop the artifact");
                     choice = console.nextLine().toLowerCase();
             }
-            if ("equip".equals(choice)) {
-                //Attach Artifact
-            }
+            if ("equip".equals(choice))
+                Artifact.equipArtifact();
             else
                 System.out.println("You have droped the artifact.");
         }

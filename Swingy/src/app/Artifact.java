@@ -1,16 +1,25 @@
 package app;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Artifact {
-    protected static String    Name;
-    protected static String    Rarity;
-    protected static int       Attack;
-    protected static int       savedAttack;
-    protected static int       Defense;
-    protected static int       savedDefense;
-    protected static int       HitPoints;
-    protected static int       savedHitPoints;
+    protected static String     Name;
+    protected static String     Rarity;
+    protected static String     Type;
+    protected static int        Attack;
+    protected static int        savedAttack;
+    protected static int        Defense;
+    protected static int        savedDefense;
+    protected static int        HitPoints;
+    protected static int        savedHitPoints;
+    static List<String>         listName = new ArrayList<String>();
+    static List<String>         listRarity = new ArrayList<String>();
+    static List<String>         listType = new ArrayList<String>();
+    protected static int        min;
+    protected static int        max;
 
     protected Artifact(String Name, String Rarity, int Attack, int savedAttack, int Defense, int savedDefense, int HitPoints, int savedHitPoints) {
         this.Name = Name;
@@ -23,48 +32,151 @@ public class Artifact {
         this.savedHitPoints = savedHitPoints;
     }
 
-    public static void createArtifact() {
-        
+    public static String getName() {
+        listName.add("wooden");
+        listName.add("bronze");
+        listName.add("iron");
+        listName.add("gold");
+        listName.add("dimond");
+        listName.add("damascus");
+        String random = listName.get(new Random().nextInt(listName.size()));
+        return random;
     }
 
-    public void RaritySet() {
-        int mapLevel = Map.getMapLevel();
-        // int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
+    //FIX RARITY RATES
+    public static String getRarity() {
+        listRarity.add("Common");
+        listRarity.add("Rare");
+        listRarity.add("Legendary");
+        listRarity.add("Mythic");
+        String random = listRarity.get(new Random().nextInt(listRarity.size()));
+        return random;
     }
 
-    public void AttackStats() {
-        int min;
-        int max;
-        int mapLevel = Map.getMapLevel();
+    public static String getType() {
+        listType.add("weapon");
+        listType.add("armor");
+        listType.add("helm");
+        String random = listType.get(new Random().nextInt(listType.size()));
+        return random;
+    }
+
+    public static int getAttack() {
+        int attack = 0;
+        int heroLevel = Hero.getHeroLevel();
         if (Rarity.equals("Common")) {
             min = 1;
             max = 1;
-            int attackStat = ThreadLocalRandom.current().nextInt(min, max + mapLevel);
+            attack = ThreadLocalRandom.current().nextInt(min, max + heroLevel);
         }
-        else if (Rarity.equals("UnCommon")) {
+        if (Rarity.equals("Rare")) {
             min = 2;
-            max = 2;
-            int attackStat = ThreadLocalRandom.current().nextInt(min, max + mapLevel);
-        }
-        else if (Rarity.equals("Rare")) {
-            min = 3;
             max = 3;
-            int attackStat = ThreadLocalRandom.current().nextInt(min, max + mapLevel);
+            attack = ThreadLocalRandom.current().nextInt(min, max + heroLevel);
         }
-        else if (Rarity.equals("Legendary")) {
-            min = 5;
-            max = 6;
-            int attackStat = ThreadLocalRandom.current().nextInt(min, max + mapLevel);
+        if (Rarity.equals("Legendary")) {
+            min = 3;
+            max = 5;
+            attack = ThreadLocalRandom.current().nextInt(min, max + heroLevel);
         }
-        else if (Rarity.equals("Mythic")) {
-            min = 7;
-            max = 8;
-            int attackStat = ThreadLocalRandom.current().nextInt(min, max + mapLevel);
+        if (Rarity.equals("Mythic")) {
+            min = 4;
+            max = 7;
+            attack = ThreadLocalRandom.current().nextInt(min, max + heroLevel);
         }
-        else if (Rarity.equals("EzModeActivatedWTF")) {
-            min = 9;
-            max = 10;
-            int attackStat = ThreadLocalRandom.current().nextInt(min, max + mapLevel);
+        return attack;
+    }
+
+    public static int getDefense() {
+        int defense = 0;
+        int heroLevel = Hero.getHeroLevel();
+        if (Rarity.equals("Common")) {
+            min = 1;
+            max = 1;
+            defense  = ThreadLocalRandom.current().nextInt(min, max + heroLevel);
         }
+        if (Rarity.equals("Rare")) {
+            min = 2;
+            max = 3;
+            defense  = ThreadLocalRandom.current().nextInt(min, max + heroLevel);
+        }
+        if (Rarity.equals("Legendary")) {
+            min = 3;
+            max = 5;
+            defense  = ThreadLocalRandom.current().nextInt(min, max + heroLevel);
+        }
+        if (Rarity.equals("Mythic")) {
+            min = 4;
+            max = 7;
+            defense  = ThreadLocalRandom.current().nextInt(min, max + heroLevel);
+        }
+        return defense;
+    }
+
+    public static int getHitPoints() {
+        int hitpoints = 0;
+        int heroLevel = Hero.getHeroLevel();
+        if (Rarity.equals("Common")) {
+            min = 1;
+            max = 1;
+            hitpoints = ThreadLocalRandom.current().nextInt(min, max + heroLevel);
+        }
+        if (Rarity.equals("Rare")) {
+            min = 2;
+            max = 3;
+            hitpoints = ThreadLocalRandom.current().nextInt(min, max + heroLevel);
+        }
+        if (Rarity.equals("Legendary")) {
+            min = 3;
+            max = 5;
+            hitpoints = ThreadLocalRandom.current().nextInt(min, max + heroLevel);
+        }
+        if (Rarity.equals("Mythic")) {
+            min = 4;
+            max = 7;
+            hitpoints = ThreadLocalRandom.current().nextInt(min, max + heroLevel);
+        }
+        return hitpoints;
+    }
+
+    public static void preStatsSave() {
+        savedAttack = Hero.Attack;
+        savedDefense = Hero.Defense;
+        savedHitPoints = Hero.HitPoints;
+    }
+
+    public static void createArtifact() {
+        Name = getName();
+        Rarity = getRarity();
+        Type = getType();
+        Attack = getAttack();
+        Defense = getDefense();
+        HitPoints = getHitPoints();
+        
+    }
+
+    public static void getArtifactStats() {
+        if ("weapon".equals(Type)) {
+            System.out.println("Stats-> +" + Attack + "attack");
+            if ((Hero.Attack - Attack) != savedAttack)
+                System.out.println("Current equiped artifact stats -> +" + (Hero.Attack - savedAttack) + "attack");
+        }
+        if ("armor".equals(Type)) {
+            System.out.println("Stats-> +" + Defense + "defense");
+            if ((Hero.Defense - Defense) != savedDefense)
+                System.out.println("Current equiped artifact stats -> +" + (Hero.Defense - savedDefense) + "defense");
+        }
+        if ("helm".equals(Type)) {
+            System.out.println("Stats-> +" + HitPoints + "hp");
+            if ((Hero.HitPoints - HitPoints) != savedHitPoints)
+                System.out.println("Current equiped artifact stats -> +" + (Hero.HitPoints - savedHitPoints) + "hp");
+        }
+    }
+
+    public static void equipArtifact() {
+        Hero.Attack = Hero.Attack + Attack;
+        Hero.Defense = Hero.Defense + Defense;
+        Hero.HitPoints = Hero.HitPoints + HitPoints;
+        System.out.println("You have equiped the artifact!");
     }
 }

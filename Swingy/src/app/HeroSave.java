@@ -37,7 +37,7 @@ public class HeroSave {
         pr.close();
         System.out.println("Hero saved successfully!");
     }
-
+    //FIX Outer bounds exception when choosing unexisting index
     public static void loadHero() throws IOException {
         index = 1;
         Boolean successFind = false;
@@ -56,6 +56,7 @@ public class HeroSave {
         System.out.println("Choose your saved hero!\n(Choose character index)");
         chosenHero = console.nextLine();
         String[] parts = sb.toString().split("\\s+");
+        
         while (index != Integer.parseInt(chosenHero) + 1) {
             int multiplier = (index - 1) * 12;
             if (chosenHero.equals(parts[multiplier])) {
@@ -64,8 +65,8 @@ public class HeroSave {
             // index = ((index + 1) > (parts.length / 12)) ?  parts.length : index + 1;
             index = index + 1;
         }
-        //FIX CHARACTER LOAD, LOADS ONE AHEAD
         if (successFind) {
+            index = index - 1;
             Hero.loadHero(parts[index * 12 - 11], parts[index * 12 - 10], Integer.parseInt(parts[index * 12 - 9]), Integer.parseInt(parts[index * 12 - 8]),
             Integer.parseInt(parts[index * 12 - 6]), Integer.parseInt(parts[index * 12 - 5]), Integer.parseInt(parts[index * 12 - 4]),
             Integer.parseInt(parts[index * 12 - 3]), Integer.parseInt(parts[index * 12 - 2]), Integer.parseInt(parts[index * 12 - 1]));

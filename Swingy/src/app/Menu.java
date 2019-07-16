@@ -24,6 +24,7 @@ public class Menu {
 
     public static void closeGame() {
         GameState = false;
+        System.out.println(" -- Game Closed --");
     }
 
     public static void winRound() {

@@ -1,12 +1,4 @@
-1 Teo1 mage 1 0 1000 4 2 5 0 1 0
-2 Teo2 mage 1 2 1000 3 4 5 6 7 8
-3 test3 mage 1 0 1000 4 2 5 0 1 0
-4 Teo4 hacker 1 0 1000 10 10 100 100 10 10
-5 Phil5 assasin 1 0 1000 3 1 10 20 0 0
-6 Xeno6 hacker 1 0 1000 10 10 100 100 10 10
-7 Teo7 warrior 1 0 1000 2 5 20 0 0 1
-8 Teo8 mage 1 0 1000 4 2 5 0 1 0
-9 Teo9 mage 2 0 1000 4 2 5 0 1 0
-10 Test10 mage 1 0 1000 4 2 5 0 1 0
-11 Gabie hacker 1 0 1000 10 10 100 100 10 10
-12 Teo2 mage 2 1002 1000 3 4 5 6 7 8
+1 teo mage 1 0 1000 1 2 10 0 3 0
+2 teo mage 2 0 1000 10 2 10 0 3 0
+3 teo mage 1 500 1000 10 2 10 0 3 0
+4 teo mage 2 0 2450 11 3 20 0 5 0
