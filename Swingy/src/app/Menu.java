@@ -30,7 +30,8 @@ public class Menu {
     public static void winRound() {
         int view;
         Hero.expAdd(Map.getMapLevel() * 250);
-        System.out.println("WON THE ROUND\nReceived " + (view = Map.getMapLevel() * 250) + " map clear exp!");
+        System.out.println("YOU WON THE ROUND");
+        // System.out.println("WON THE ROUND\nReceived " + (view = Map.getMapLevel() * 250) + " map clear exp!");
         roundwin = true;
         //Create new map
         System.out.println("- New Round -");

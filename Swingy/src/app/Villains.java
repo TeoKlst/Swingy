@@ -89,8 +89,9 @@ public class Villains {
         return OutCome;   
     }
 
-    //CALL IN RE-SAVE STATS SOMEWHERE
+    //RE-SAVE STATS CALLED
     public static void villainDeath() {
+        Hero.expAdd(250 * Level);
         if (itemDropRate()) {
             Artifact.createArtifact();
             System.out.println("The enemy droped a " + Artifact.Rarity + " " +
@@ -101,11 +102,12 @@ public class Villains {
                     System.out.println("Incorrect action!\nEquip or drop the artifact");
                     choice = console.nextLine().toLowerCase();
             }
-            if ("equip".equals(choice))
+            if ("equip".equals(choice)) {
+                Artifact.unEquipArtifact();
                 Artifact.equipArtifact();
+            }
             else
                 System.out.println("You have droped the artifact.");
         }
-        Hero.expAdd(250 * Level);
     }
 }

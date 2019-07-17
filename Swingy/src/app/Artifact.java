@@ -155,6 +155,7 @@ public class Artifact {
         
     }
 
+    //If artifact is equiped displaying incorrectly(When no artifact is equiped)
     public static void getArtifactStats() {
         if ("weapon".equals(Type)) {
             System.out.println("Stats-> +" + Attack + "attack");
@@ -171,6 +172,18 @@ public class Artifact {
             if ((Hero.HitPoints - HitPoints) != savedHitPoints)
                 System.out.println("Current equiped artifact stats -> +" + (Hero.HitPoints - savedHitPoints) + "hp");
         }
+    }
+
+    public static void unEquipArtifact() {
+        Hero.Attack = savedAttack;
+        Hero.Defense = savedDefense;
+        Hero.HitPoints = savedHitPoints;
+    }
+
+    public static void levelEquipArtifact() {
+        Hero.Attack = Hero.Attack + Attack;
+        Hero.Defense = Hero.Defense + Defense;
+        Hero.HitPoints = Hero.HitPoints + HitPoints;
     }
 
     public static void equipArtifact() {

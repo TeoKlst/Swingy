@@ -116,6 +116,7 @@ public class Hero {
         System.out.println("Your Stats:" + "\nLevel:" + Level + "\nExperience:" + Experience + "\nExperienceCap:"
                 + ExperienceCap + "\nAttack:" + Attack + "\nDefense:" + Defense + "\nHitPoints" + HitPoints
                 + "\nCritChance:" + CritChance + "\nMagicDmg" + MagicDmg + "\nBleedDmg" + BleedDmg);
+        Artifact.preStatsSave();
     }
 
     public static void loadHero(String name, String heroclass, int level, int experience, int attack, int defense,
@@ -131,6 +132,7 @@ public class Hero {
         Attack = attack;
         Defense = defense;
         HitPoints = hitPoints;
+        Artifact.preStatsSave();
     }
 
     public static String heroPrintable() {
@@ -201,6 +203,7 @@ public class Hero {
     }
 
     public static void statsLevelUp() {
+        Artifact.unEquipArtifact();
         Level = Level + 1;
         Experience = 0;
         ExperienceCap = (Level * 1000 + ((Level - 1) * (Level - 1)) * 450);
@@ -213,16 +216,19 @@ public class Hero {
         Attack = Attack + 1;
         Defense = Defense + 1;
         HitPoints = Level * 10;
+        Artifact.preStatsSave();
+        Artifact.levelEquipArtifact();
     }
 
     public static void expAdd(int exp) {
+        System.out.println("Gained " + exp + "exp!");
         Experience = Experience + exp;
         if (Experience >= ExperienceCap) {
-            System.out.println("* * WOOW you level'd up! * *");
+            System.out.println("* * WOW you level'd up! * *");
             statsLevelUp();
         }
     }
-
+    //FIX MOVEMENT AFTER RUN STILL MOVE
     public static void movement() {
         Map.unAssignHero(getCoordX(), getCoordY());
         if (Map.Direction.equals("up")) {
@@ -239,6 +245,8 @@ public class Hero {
                 }
                 else {
                     choiceRun();
+                    if (Villains.HitPoints <= 0)
+                        x = x - 1;
                 }
             }
             else if((x - 1) == -1)
@@ -260,6 +268,8 @@ public class Hero {
                 }
                 else {
                     choiceRun();
+                    if (Villains.HitPoints <= 0)
+                    y = y + 1;
                 }
             }
             else if((y + 1) == Map.getMapSize())
@@ -281,6 +291,8 @@ public class Hero {
                 }
                 else {
                     choiceRun();
+                    if (Villains.HitPoints <= 0)
+                        x = x + 1;
                 }
             }
             else if((x + 1) == Map.getMapSize())
@@ -302,6 +314,8 @@ public class Hero {
                 }
                 else {
                     choiceRun();
+                    if (Villains.HitPoints <= 0)
+                    y = y - 1;
                 }
             }
             else if((y - 1) == -1)

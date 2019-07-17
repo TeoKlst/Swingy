@@ -1,6 +1,5 @@
 package app;
 
-import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -35,15 +34,12 @@ public class Map {
 
     public static void mapGeneration() {
         MapSize = getMapSize();
-        // MapSize = 5;
-        // Coordinates MapLayout[][] = new Coordinates[MapSize][MapSize];
         MapLayout = new int[MapSize][MapSize];
-        // MapLayout[2][2] = 1;
     }
 
     public static void mapDisplay() {
         System.out.println(Arrays.deepToString(MapLayout).replace("], ", "]\n").replace("[[", "[").replace("]]", "]")
-                .replace(", ", " ").replace("1", "P").replace("2", "M").replace("0", "-"));
+                .replace(", ", " ").replace("1", "P").replace("2", "*").replace("0", "-"));
     }
 
     public static void assignHero(int X, int Y) {
@@ -65,32 +61,6 @@ public class Map {
         Hero.y = Y;
         MapLayout[X][Y] = 1;
     }
-
-    public void keyPressed(KeyEvent e) {
-        if (Direction.equals("up".toLowerCase()) && e.getKeyCode() == KeyEvent.VK_UP) {
-            System.out.println("UP PRESSED");
-        }
-        if (Direction.equals("right".toLowerCase()) && e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            System.out.println("RIGHT PRESSED");
-        }
-        if (Direction.equals("down".toLowerCase()) && e.getKeyCode() == KeyEvent.VK_DOWN) {
-            System.out.println("DOWN PRESSED");
-        }
-        if (Direction.equals("left".toLowerCase()) && e.getKeyCode() == KeyEvent.VK_LEFT) {
-            System.out.println("LEFT PRESSED");
-        }
-        if (Direction.equals("close".toLowerCase()) && e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            System.out.println("TRY ESCAPE");
-        }
-    }
-    // addKeyListener(new Movement(this));
-    // Map.@addKeyListener(new Movement (this);
-    
-    public static void mapEndReach() {
-        //Checks if map end is reached
-        //Gives XP on clear
-        //Regenerates map again
-    }
 }
 
 class Main2 {
@@ -100,8 +70,6 @@ class Main2 {
 
     public static void SwingRun() {
         new Thread(new Runnable() {
-            // Hero Brent = new Hero("Dude", "Assasin", 2, 5, 10, 5, 5, 5, 5, 5, 5,
-            // coordinates);
             @Override
             public void run() {
                 while (Menu.GameState) {
@@ -109,7 +77,6 @@ class Main2 {
                     System.out.print("Choose Direction: ");
                     System.out.println("Left, Right, Up or Down.");
                     Map.Direction = console.nextLine();
-                    // Map.assignHero(Brent.Coordinates);
                     try {
                         Actions.menuActions();
                     } catch (IOException e) {

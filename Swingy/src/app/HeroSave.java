@@ -20,6 +20,30 @@ public class HeroSave {
     static int index;
     protected static String chosenHero;
     
+    public static boolean isInteger(String str) {
+        if (str == null) {
+            return false;
+        }
+        int length = str.length();
+        if (length == 0) {
+            return false;
+        }
+        int i = 0;
+        if (str.charAt(0) == '-') {
+            if (length == 1) {
+                return false;
+            }
+            i = 1;
+        }
+        for (; i < length; i++) {
+            char c = str.charAt(i);
+            if (c < '0' || c > '9') {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void saveHero() throws IOException {
         index = 1;
         File inputFile = new File("HeroSave.txt");
@@ -37,7 +61,7 @@ public class HeroSave {
         pr.close();
         System.out.println("Hero saved successfully!");
     }
-    //FIX Outer bounds exception when choosing unexisting index
+
     public static void loadHero() throws IOException {
         index = 1;
         Boolean successFind = false;
@@ -56,14 +80,15 @@ public class HeroSave {
         System.out.println("Choose your saved hero!\n(Choose character index)");
         chosenHero = console.nextLine();
         String[] parts = sb.toString().split("\\s+");
-        
-        while (index != Integer.parseInt(chosenHero) + 1) {
-            int multiplier = (index - 1) * 12;
-            if (chosenHero.equals(parts[multiplier])) {
-                successFind = true;
+        //FIX Outer bounds exception when choosing unexisting index
+        if (isInteger(chosenHero)) {
+            while (index != Integer.parseInt(chosenHero) + 1) {
+                int multiplier = (index - 1) * 12;
+                if (chosenHero.equals(parts[multiplier])) {
+                    successFind = true;
+                }
+                index = index + 1;
             }
-            // index = ((index + 1) > (parts.length / 12)) ?  parts.length : index + 1;
-            index = index + 1;
         }
         if (successFind) {
             index = index - 1;

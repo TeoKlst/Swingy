@@ -1,3 +1,4 @@
+
 package app;
 
 import java.awt.BorderLayout;
@@ -27,6 +28,7 @@ public class Main  extends JFrame {
     JPanel panLeft = new JPanel(new BorderLayout());
     JPanel panRight = new JPanel(new BorderLayout());
     JPanel panBottom = new JPanel(new BorderLayout());
+    JPanel panAction = new JPanel(new BorderLayout());
 
     JPanel panInput = new JPanel(new BorderLayout());
     JPanel panConsole = new JPanel(new BorderLayout());
@@ -41,7 +43,13 @@ public class Main  extends JFrame {
     JTextField txtLeft = new JTextField(10);
     JTextField txtRight = new JTextField(10);
 
-    JButton btnBottom = new JButton("Fun Button");
+    JButton btnTop = new JButton("Up");
+    JButton btnRight = new JButton("Right");
+    JButton btnBottom = new JButton("Bottom");
+    JButton btnLeft = new JButton("Left");
+
+    JButton btnAction1 = new JButton("Action1");
+    JButton btnAction2 = new JButton("Action2");
 
     JTextArea txtConsole = new JTextArea(5, 10);
 
@@ -116,8 +124,14 @@ public class Main  extends JFrame {
         panRight.add(lblRight, BorderLayout.NORTH);
         panRight.add(txtRight, BorderLayout.CENTER);
 
-        panBottom.add(btnBottom);
+        panBottom.add(btnTop, BorderLayout.NORTH);
+        panBottom.add(btnRight, BorderLayout.EAST);
+        panBottom.add(btnBottom, BorderLayout.SOUTH);
         btnBottom.addActionListener(new Actionlistener());
+        panBottom.add(btnLeft, BorderLayout.WEST);
+
+        panAction.add(btnAction1, BorderLayout.WEST);
+        panAction.add(btnAction2, BorderLayout.EAST);
 
         panInput.add(panLeft, BorderLayout.WEST);
         panInput.add(panRight, BorderLayout.EAST);
@@ -125,6 +139,7 @@ public class Main  extends JFrame {
 
         panOuter.add(panInput, BorderLayout.NORTH);
         panOuter.add(panConsole, BorderLayout.CENTER);
+        panOuter.add(panAction, BorderLayout.SOUTH);
 
         panConsole.add(scrPane, BorderLayout.CENTER);
 
