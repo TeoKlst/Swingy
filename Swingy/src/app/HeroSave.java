@@ -43,7 +43,7 @@ public class HeroSave {
         }
         return true;
     }
-
+    //Save pre stats for the artifacts
     public static void saveHero() throws IOException {
         index = 1;
         File inputFile = new File("HeroSave.txt");
@@ -80,7 +80,8 @@ public class HeroSave {
         System.out.println("Choose your saved hero!\n(Choose character index)");
         chosenHero = console.nextLine();
         String[] parts = sb.toString().split("\\s+");
-        //FIX Outer bounds exception when choosing unexisting index
+        //Load in pre stats for artifacts
+        //FIX Outer bounds exception when choosing un-existing index
         if (isInteger(chosenHero)) {
             while (index != Integer.parseInt(chosenHero) + 1) {
                 int multiplier = (index - 1) * 12;
