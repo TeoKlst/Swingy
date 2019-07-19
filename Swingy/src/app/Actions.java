@@ -34,7 +34,6 @@ public class Actions {
         if ("stats".equals(Map.Direction.toLowerCase()))
             Hero.getStats();
         if ("equip".equals(Map.Direction.toLowerCase()))
-            //equip function needed
             Hero.getStats();
     }
 

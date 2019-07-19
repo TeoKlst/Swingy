@@ -43,7 +43,7 @@ public class Artifact {
         return random;
     }
 
-    //FIX RARITY RATES
+    //ADD RARITY RATES
     public static String getRarity() {
         listRarity.add("Common");
         listRarity.add("Rare");

@@ -68,8 +68,11 @@ public class Hero {
 
     public static void createHero() {
         System.out.println("Select your hero's name:");
-        // Allow singular name only ++
         Name = console.nextLine();
+        while (Name.contains(" ") || Name.contains("\t")){
+            System.out.println("Please choose a single worded name.");
+            Name = console.nextLine();
+        }
         System.out.println("Choose your hero's class: Warrior, Assasin, Mage");
         Class = console.nextLine().toLowerCase();
         System.out.println(Class);
@@ -168,7 +171,6 @@ public class Hero {
         return OutCome;
     }
 
-    //FIX IF FAIL TO RUN AND FIGHT Move over to monsters position
     public static void choiceRun() {
         boolean OutCome =  Math.random() < 0.5;
         if (OutCome) {
@@ -177,6 +179,16 @@ public class Hero {
         else {
             System.out.println("Failed to run away!\nNow you have to fight!");
             battleOutcome();
+            if (Villains.HitPoints <= 0) {
+                if (Map.Direction.equals("up"))
+                    x = x - 1;
+                if (Map.Direction.equals("right"))
+                    y = y + 1;
+                if (Map.Direction.equals("down"))
+                    x = x + 1;
+                if (Map.Direction.equals("left"))
+                    y = y - 1;
+            }
         }
     }
 
@@ -228,7 +240,7 @@ public class Hero {
             statsLevelUp();
         }
     }
-    //FIX MOVEMENT AFTER RUN STILL MOVE
+
     public static void movement() {
         Map.unAssignHero(getCoordX(), getCoordY());
         if (Map.Direction.equals("up")) {
@@ -243,11 +255,8 @@ public class Hero {
                     battleOutcome();
                     x = x - 1;
                 }
-                else {
+                else
                     choiceRun();
-                    if (Villains.HitPoints <= 0)
-                        x = x - 1;
-                }
             }
             else if((x - 1) == -1)
                 Menu.winRound(); 
@@ -266,11 +275,8 @@ public class Hero {
                     battleOutcome();
                     y = y + 1;
                 }
-                else {
+                else
                     choiceRun();
-                    if (Villains.HitPoints <= 0)
-                    y = y + 1;
-                }
             }
             else if((y + 1) == Map.getMapSize())
                 Menu.winRound(); 
@@ -289,11 +295,8 @@ public class Hero {
                     battleOutcome();
                     x = x + 1;
                 }
-                else {
+                else
                     choiceRun();
-                    if (Villains.HitPoints <= 0)
-                        x = x + 1;
-                }
             }
             else if((x + 1) == Map.getMapSize())
                 Menu.winRound(); 
@@ -312,11 +315,8 @@ public class Hero {
                     battleOutcome();
                     y = y - 1;
                 }
-                else {
+                else
                     choiceRun();
-                    if (Villains.HitPoints <= 0)
-                    y = y - 1;
-                }
             }
             else if((y - 1) == -1)
                 Menu.winRound(); 

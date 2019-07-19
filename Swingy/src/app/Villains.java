@@ -83,13 +83,11 @@ public class Villains {
         }
     }
 
-    /*  50% drop rate  */
     public static boolean itemDropRate() {
         boolean OutCome =  Math.random() < 0.5;
         return OutCome;   
     }
 
-    //RE-SAVE STATS CALLED
     public static void villainDeath() {
         Hero.expAdd(250 * Level);
         if (itemDropRate()) {

@@ -64,6 +64,7 @@ public class HeroSave {
 
     public static void loadHero() throws IOException {
         index = 1;
+        int iCount = 0;
         Boolean successFind = false;
         StringBuilder sb = new StringBuilder();
         File inputFile = new File("HeroSave.txt");
@@ -75,35 +76,43 @@ public class HeroSave {
             sb.append(st);
             sb.append("\n");
             System.out.println("-->" + parts[0] + " " + parts[1] + " the " + parts[2]);
+            iCount = iCount + 1;
         }
         br.close();
         System.out.println("Choose your saved hero!\n(Choose character index)");
         chosenHero = console.nextLine();
         String[] parts = sb.toString().split("\\s+");
         //Load in pre stats for artifacts
-        //FIX Outer bounds exception when choosing un-existing index
-        if (isInteger(chosenHero)) {
-            while (index != Integer.parseInt(chosenHero) + 1) {
-                int multiplier = (index - 1) * 12;
-                if (chosenHero.equals(parts[multiplier])) {
-                    successFind = true;
+        try {
+            if (Integer.parseInt(chosenHero) <= iCount) {
+                if (isInteger(chosenHero)) {
+                    while (index != Integer.parseInt(chosenHero) + 1) {
+                        int multiplier = (index - 1) * 12;
+                        if (chosenHero.equals(parts[multiplier])) {
+                            successFind = true;
+                        }
+                        index = index + 1;
+                    }
                 }
-                index = index + 1;
+                if (successFind) {
+                    index = index - 1;
+                    Hero.loadHero(parts[index * 12 - 11], parts[index * 12 - 10], Integer.parseInt(parts[index * 12 - 9]), Integer.parseInt(parts[index * 12 - 8]),
+                    Integer.parseInt(parts[index * 12 - 6]), Integer.parseInt(parts[index * 12 - 5]), Integer.parseInt(parts[index * 12 - 4]),
+                    Integer.parseInt(parts[index * 12 - 3]), Integer.parseInt(parts[index * 12 - 2]), Integer.parseInt(parts[index * 12 - 1]));
+                    Map.mapGeneration();
+                    Villains.villainGenerate();
+                    Map.assignHeroCL();
+                    System.out.println("Hero loaded successfully!");
+                }
             }
-        }
-        if (successFind) {
-            index = index - 1;
-            Hero.loadHero(parts[index * 12 - 11], parts[index * 12 - 10], Integer.parseInt(parts[index * 12 - 9]), Integer.parseInt(parts[index * 12 - 8]),
-            Integer.parseInt(parts[index * 12 - 6]), Integer.parseInt(parts[index * 12 - 5]), Integer.parseInt(parts[index * 12 - 4]),
-            Integer.parseInt(parts[index * 12 - 3]), Integer.parseInt(parts[index * 12 - 2]), Integer.parseInt(parts[index * 12 - 1]));
-            Map.mapGeneration();
-            Villains.villainGenerate();
-            Map.assignHeroCL();
-            System.out.println("Hero loaded successfully!");
-        }
-        else {
-            System.out.println("Hero doesn't exist or incorrect id chosen.");
+            else {
+                System.out.println("Hero doesn't exist or incorrect id chosen.");
+                loadHero();
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("! - Please enter an integer - !");
             loadHero();
+            // e.printStackTrace();
         }
     }
 }
