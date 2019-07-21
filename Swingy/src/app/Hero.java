@@ -63,7 +63,7 @@ public class Hero {
         System.out.println("Your Stats:" + "\nName:" + Name + "\nClass:" + Class + "\nLevel:" + Level + "\nExperience"
                 + Experience + "\nExperienceCap" + ExperienceCap + "\nAttack" + Attack + "\nDefense" + Defense
                 + "\nHitPoints" + HitPoints + "\nCritChance" + CritChance + "\nMagicDmg" + MagicDmg + "\nBleedDmg"
-                + BleedDmg);
+                + BleedDmg + "\nSaved stats" + Artifact.savedAttack + Artifact.savedDefense + Artifact.savedHitPoints);
     }
 
     public static void createHero() {
@@ -123,7 +123,8 @@ public class Hero {
     }
 
     public static void loadHero(String name, String heroclass, int level, int experience, int attack, int defense,
-            int hitPoints, int critChance, int magicDmg, int bleedDmg) {
+            int hitPoints, int critChance, int magicDmg, int bleedDmg, int artiSavedAttack, int artiSavedDefense,
+            int artiSavedHitPoints) {
         Name = name;
         Class = heroclass;
         Level = level;
@@ -135,13 +136,17 @@ public class Hero {
         Attack = attack;
         Defense = defense;
         HitPoints = hitPoints;
-        Artifact.preStatsSave();
+        Artifact.savedAttack = (Attack - artiSavedAttack);
+        Artifact.savedDefense = (Defense - artiSavedDefense);
+        Artifact.savedHitPoints = (HitPoints - artiSavedHitPoints);
+        // Artifact.preStatsSave();
     }
 
     public static String heroPrintable() {
         String heroData;
         return heroData = Name + " " + Class + " " + Level + " " + Experience + " " + ExperienceCap + " " + Attack + " "
-                + Defense + " " + HitPoints + " " + CritChance + " " + MagicDmg + " " + BleedDmg;
+                + Defense + " " + HitPoints + " " + CritChance + " " + MagicDmg + " " + BleedDmg + " "
+                + (Attack - Artifact.savedAttack) + " " + (Defense - Artifact.savedDefense) + " " + (HitPoints - Artifact.savedHitPoints);
     }
 
     public static void heroDie() {

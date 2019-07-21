@@ -149,9 +149,15 @@ public class Artifact {
         Name = getName();
         Rarity = getRarity();
         Type = getType();
-        Attack = getAttack();
-        Defense = getDefense();
-        HitPoints = getHitPoints();
+        if (Type.equals("weapon")) {
+            Attack = getAttack();
+        }
+        if (Type.equals("armor")) {
+            Defense = getDefense();
+        }
+        if (Type.equals("helm")) {
+            HitPoints = getHitPoints();
+        }
         
     }
 
@@ -173,7 +179,7 @@ public class Artifact {
                 System.out.println("Current equiped artifact stats -> +" + (Hero.HitPoints - savedHitPoints) + "hp");
         }
     }
-
+    //Error with equip
     public static void unEquipArtifact() {
         Hero.Attack = savedAttack;
         Hero.Defense = savedDefense;
