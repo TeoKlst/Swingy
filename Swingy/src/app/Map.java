@@ -90,7 +90,6 @@ class Main2 {
         }).start();
     }
     public static void main(String[] args) throws Exception {
-        //ADD Menu checks if there are any save, if not then can only create hero and not load
         Menu.menuSelection();
         if (Menu.CL == true) {
             Hero.createHero();

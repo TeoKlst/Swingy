@@ -16,10 +16,15 @@ public class Menu {
             System.out.println("Invalid option!\nPlease choose Create or Load");
             buffer = console.nextLine();
         }
-        if ("create".equals(buffer.toLowerCase()))
-        CL = true;
-        if ("load".equals(buffer.toLowerCase()))
-        CL = false;
+        if ("create".equals(buffer.toLowerCase())) {
+            CL = true;
+        }
+        if ("load".equals(buffer.toLowerCase())) {
+            if (!(HeroSave.checkSaveFile()))
+                menuSelection();
+            else
+                CL = false;
+        }
     }
 
     public static void closeGame() {
