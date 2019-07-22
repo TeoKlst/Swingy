@@ -46,7 +46,7 @@ public class HeroSave {
 
     public static boolean checkSaveFile() {
         Boolean readresult = true;
-        File inputFile = new File("HeroSave.txt");
+        File inputFile = new File("artifactid/HeroSave.txt");
         try {
             br = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
             if ((st = br.readLine()) == null) {
@@ -63,7 +63,7 @@ public class HeroSave {
 
     public static void saveHero() throws IOException {
         index = 1;
-        File inputFile = new File("HeroSave.txt");
+        File inputFile = new File("artifactid/HeroSave.txt");
         br = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
         while ((st = br.readLine()) != null) {
             String[] parts = st.split("\\s+");
@@ -71,7 +71,7 @@ public class HeroSave {
                 index = index + 1;
         }
         br.close();
-        File outputFile = new File("HeroSave.txt");
+        File outputFile = new File("artifactid/HeroSave.txt");
         pr = new PrintWriter(new FileWriter(outputFile, true));
         pr.println(index + " " + Hero.heroPrintable());
         pr.close();
@@ -83,7 +83,7 @@ public class HeroSave {
         int iCount = 0;
         Boolean successFind = false;
         StringBuilder sb = new StringBuilder();
-        File inputFile = new File("HeroSave.txt");
+        File inputFile = new File("artifactid/HeroSave.txt");
         br = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
         System.out.println("Heroes list: ");
         while ((st = br.readLine()) != null) {
