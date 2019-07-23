@@ -104,3 +104,5 @@ class Main2 {
         SwingRun();
     }
 }
+
+// java -jar target/Swingy.jar

@@ -81,16 +81,17 @@ public class Main  extends JFrame {
             JPanel panel = new JPanel();
             frame2.add(panel);
             panel.add(label);
+            panOuter.setVisible(false);
             // }
         }
     }
 
     private class funcActionlistener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            textF.setText("WOOOOW!");
-            labelL.setText("ChangeLabel!");
+            
         }
     }
+    
     
 	public static void main(String[] args) throws Exception {
         //Maybe rename later in case of refferance
@@ -123,6 +124,7 @@ public class Main  extends JFrame {
 
         panRight.add(lblRight, BorderLayout.NORTH);
         panRight.add(txtRight, BorderLayout.CENTER);
+        panRight.add(comboBox, BorderLayout.SOUTH);
 
         panBottom.add(btnTop, BorderLayout.NORTH);
         panBottom.add(btnRight, BorderLayout.EAST);
