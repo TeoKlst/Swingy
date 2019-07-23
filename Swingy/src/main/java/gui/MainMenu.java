@@ -1,6 +1,9 @@
 package gui;
 
 import javax.swing.*;
+
+import app.HeroSave;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,7 +27,6 @@ public class MainMenu extends JFrame {
 
         createButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // IntroText.setText("WORKS");
                 CreateMenu createMenu = new CreateMenu();
                 createMenu.setVisible(true);
                 dispose();
@@ -33,11 +35,15 @@ public class MainMenu extends JFrame {
 
         loadButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-//                    IntroText.setText("No saved characters! Please create a new character.");
-                LoadMenu loadMenu = new LoadMenu();
-                loadMenu.setVisible(true);
-//              setVisible(false);
-                dispose();
+                if (!HeroSave.checkSaveFile()) {
+                    IntroText.setText("There seem to be no saved games! Please create a hero.");
+                }
+                else {
+                    LoadMenu loadMenu = new LoadMenu();
+                    loadMenu.setVisible(true);
+    //              setVisible(false);
+                    dispose();
+                }
             }
         });
     }

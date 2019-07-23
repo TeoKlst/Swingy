@@ -7,6 +7,7 @@ app/Main$1.class
 app/Artifact.class
 app/Main$funcActionlistener.class
 gui/MainMenu$2.class
+gui/CreateMenu$2.class
 gui/LoadMenu.class
 app/Main.class
 app/Main2$1.class

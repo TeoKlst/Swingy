@@ -1,6 +1,13 @@
 package gui;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import app.Hero;
+import app.Map;
+import app.Villains;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,10 +15,11 @@ import java.awt.event.ActionListener;
 public class CreateMenu extends JFrame {
     private JPanel MainWindow;
     private JButton createButton;
-    private JTextField textField1;
+    public static JTextField textField1;
     private JComboBox ClassNameList;
     private JLabel IntoLabel;
     private JLabel HeroLabel;
+    public static String value;
 
     public CreateMenu() {
         add(MainWindow);
@@ -20,13 +28,84 @@ public class CreateMenu extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        textField1.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+              changed();
+            }
+            public void removeUpdate(DocumentEvent e) {
+              changed();
+            }
+            public void insertUpdate(DocumentEvent e) {
+              changed();
+            }
+          
+            public void changed() {
+               if (textField1.getText().contains("\t") || textField1.getText().contains(" ")){
+                    IntoLabel.setText("Please choose a single worded name.");
+                    createButton.setEnabled(false);
+               }
+               else if (textField1.getText().equals("")) {
+                    IntoLabel.setText("Cannot create with hero with no name.");
+                    createButton.setEnabled(false);
+               }
+               else {
+                    IntoLabel.setText("Hero Name");
+                    createButton.setEnabled(true);
+              }
+            }
+          });
+
         createButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                GameMenu gameMenu = new GameMenu();
-                gameMenu.setVisible(true);
-                dispose();
+                if (textField1.getText().equals("")) {
+                    IntoLabel.setText("Cannot create with hero with no name.");
+                    createButton.setEnabled(false);
+                }
+                else {
+                    Hero.createHeroGUI();
+                    Map.mapGeneration();
+                    Villains.villainGenerate();
+                    Map.assignHeroCL();
+                    GameMenu gameMenu = new GameMenu();
+                    gameMenu.setVisible(true);
+                    dispose();
+                }
             }
         });
+
+        class ComboItem {
+            private String key;
+            private String value;
+
+            public ComboItem(String key, String value)
+            {
+                this.key = key;
+                this.value = value;
+            }
+
+            @Override
+            public String toString()
+            {
+                return key;
+            }
+
+            public String getKey()
+            {
+                return key;
+            }
+
+            public String getValue()
+            {
+                return value;
+            }
+        }
+
+        ClassNameList.addItem(new ComboItem("Mage", "mage"));
+        ClassNameList.addItem(new ComboItem("Warrior", "warrior"));
+        ClassNameList.addItem(new ComboItem("Assasin", "assasin"));
+        
+        Object item = ClassNameList.getSelectedItem();
+        value = ((ComboItem)item).getValue();
     }
 
     {

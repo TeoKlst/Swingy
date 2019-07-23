@@ -1,5 +1,3 @@
-package gui;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,12 +12,12 @@ public class GameMenu extends JFrame {
     private JButton saveButton;
     private JButton loadButton;
     private JButton closeButton;
-    private JScrollPane TerminalOutput;
     private JButton statsButton;
     private JPanel ButtonsPanel;
     private JPanel MapPanel;
     private JPanel TerminalPanel;
-    private JScrollPane MapScrollPane;
+    private JTextArea MapArea;
+    private JTextArea TerminalArea;
 
     public GameMenu() {
 
@@ -141,5 +139,9 @@ public class GameMenu extends JFrame {
      */
     public JComponent $$$getRootComponent$$$() {
         return MainWindow;
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 }

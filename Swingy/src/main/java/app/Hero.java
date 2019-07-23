@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import gui.CreateMenu;
+
 public class Hero {
     protected static String Name;
     protected static String Class;
@@ -64,6 +66,51 @@ public class Hero {
                 + Experience + "\nExperienceCap" + ExperienceCap + "\nAttack" + Attack + "\nDefense" + Defense
                 + "\nHitPoints" + HitPoints + "\nCritChance" + CritChance + "\nMagicDmg" + MagicDmg + "\nBleedDmg"
                 + BleedDmg + "\nSaved stats" + Artifact.savedAttack + Artifact.savedDefense + Artifact.savedHitPoints);
+    }
+
+    public static void createHeroGUI() {
+        Name = CreateMenu.textField1.getText();
+        Class = CreateMenu.value;
+        //Setting stats
+        Level = 1;
+        Experience = 0;
+        ExperienceCap = (Level * 1000 + ((Level - 1) * (Level - 1)) * 450);
+        HitPoints = Level * 10;
+        if ("assasin".equals(Class)) {
+            CritChance = 20;
+            BleedDmg = 0;
+            MagicDmg = 0;
+            Attack = 5;
+            Defense = 1;
+        } else if ("warrior".equals(Class)) {
+            BleedDmg = 1;
+            CritChance = 0;
+            MagicDmg = 0;
+            Attack = 2;
+            Defense = 5;
+        } else if ("mage".equals(Class)) {
+            MagicDmg = 3;
+            CritChance = 0;
+            BleedDmg = 0;
+            Attack = 1;
+            Defense = 2;
+        } else if ("hacker".equals(Class)) {
+            MagicDmg = 10;
+            CritChance = 100;
+            BleedDmg = 10;
+            Attack = 10;
+            Defense = 10;
+            HitPoints = 100;
+            System.out.println("W0W You are a hacker!");
+        }
+        myHero = new Hero(Name, Class, Level, Experience, ExperienceCap, Attack, Defense, HitPoints, CritChance,
+                MagicDmg, BleedDmg, Coordinates);
+        System.out.println(Name + " the " + Class + " has been teleported to the fantasy realm!");
+        System.out.println("Your Stats:" + "\nLevel:" + Level + "\nExperience:" + Experience + "\nExperienceCap:"
+                + ExperienceCap + "\nAttack:" + Attack + "\nDefense:" + Defense + "\nHitPoints" + HitPoints
+                + "\nCritChance:" + CritChance + "\nMagicDmg" + MagicDmg + "\nBleedDmg" + BleedDmg);
+        Artifact.preStatsSave();
+        System.out.println("Hero Created");
     }
 
     public static void createHero() {
