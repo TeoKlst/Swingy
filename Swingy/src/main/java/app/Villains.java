@@ -84,7 +84,8 @@ public class Villains {
     }
 
     public static boolean itemDropRate() {
-        boolean OutCome =  Math.random() < 0.5;
+        boolean OutCome = false;
+        // boolean OutCome =  Math.random() < 0.5;
         return OutCome;   
     }
 

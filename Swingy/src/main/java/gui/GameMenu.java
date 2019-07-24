@@ -41,26 +41,28 @@ public class GameMenu extends JFrame {
         upButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Hero.movementUpGUI();
-                Map.assignHero(Hero.getCoordX(), Hero.getCoordY());
                 Map.mapDisplayGUI();
             }
         });
 
         rightButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                Hero.movementRightGUI();
+                Map.mapDisplayGUI();
             }
         });
 
         downButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                Hero.movementDownGUI();
+                Map.mapDisplayGUI();
             }
         });
 
         leftButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                Hero.movementLeftGUI();
+                Map.mapDisplayGUI();
             }
         });
 

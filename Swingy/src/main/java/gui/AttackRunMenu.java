@@ -1,14 +1,19 @@
 package gui;
 
 import javax.swing.*;
+
+import app.Hero;
+import app.Map;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AttackRunMenu extends JFrame {
     private JPanel MainWindow;
-    private JButton attackButton;
-    private JButton runButton;
+    public static JButton attackButton;
+    public static JButton runButton;
+    public static String attackRunDirection;
     private JLabel monsterLabel;
 
     public AttackRunMenu() {
@@ -20,13 +25,19 @@ public class AttackRunMenu extends JFrame {
 
         attackButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                Hero.attackRunGUI();
+                //Not updating
+                //also artifacts are disabled
+                Map.mapDisplayGUI();
+                dispose();
             }
         });
 
         runButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                attackRunDirection = "run";
+                Hero.attackRunGUI();
+                dispose();
             }
         });
     }

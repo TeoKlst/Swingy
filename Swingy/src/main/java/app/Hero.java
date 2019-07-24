@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import gui.AttackRunMenu;
 import gui.CreateMenu;
 import gui.GameMenu;
 
@@ -301,9 +302,70 @@ public class Hero {
         }
     }
 
+    public static void attackRunGUI() {
+        Map.unAssignHero(getCoordX(), getCoordY());
+        if ("up".equals(AttackRunMenu.attackRunDirection)) {
+            battleOutcome();
+            x = x - 1;
+        }
+        else if ("right".equals(AttackRunMenu.attackRunDirection)) {
+            battleOutcome();
+            x = x - 1;
+        }
+        else if ("down".equals(AttackRunMenu.attackRunDirection)) {
+            battleOutcome();
+            x = x - 1;
+        }
+        else if ("left".equals(AttackRunMenu.attackRunDirection)) {
+            battleOutcome();
+            x = x - 1;
+        }
+        else
+            choiceRun();
+        Map.assignHero(Hero.getCoordX(), Hero.getCoordY());
+    }
+
     public static void movementUpGUI() {
         Map.unAssignHero(getCoordX(), getCoordY());
         if (Map.MapLayout[(getCoordX() - 1 == -1) ? 0 : getCoordX() - 1][getCoordY()] == 2) {
+            AttackRunMenu attackRunMenu = new AttackRunMenu();
+            attackRunMenu.setVisible(true);
+            AttackRunMenu.attackRunDirection = "up";
+        }
+        else if((x - 1) == -1)
+            Menu.winRound(); 
+        else
+            x = x - 1;
+        Map.assignHero(Hero.getCoordX(), Hero.getCoordY());
+    }
+
+    public static void movementRightGUI() {
+        Map.unAssignHero(getCoordX(), getCoordY());
+        if (Map.MapLayout[getCoordX()][(getCoordY() + 1) >= Map.getMapSize() ? 0 : getCoordY() + 1] == 2) {
+            AttackRunMenu attackRunMenu = new AttackRunMenu();
+            attackRunMenu.setVisible(true);
+            choice = console.nextLine().toLowerCase();
+            while ("fight" != choice.intern() && "run" != choice.intern()) {
+                System.out.println("Incorrect command!\nChoose Fight or Run!");
+                choice = console.nextLine().toLowerCase();
+            }
+            if ("fight".equals(choice)) {
+                battleOutcome();
+                y = y + 1;
+            }
+            else
+                choiceRun();
+        }
+        else if((y + 1) == Map.getMapSize())
+            Menu.winRound(); 
+        else
+            y = y + 1;
+        Map.assignHero(Hero.getCoordX(), Hero.getCoordY());
+    }
+
+    public static void movementDownGUI() {
+        Map.unAssignHero(getCoordX(), getCoordY());
+        if (Map.MapLayout[(getCoordX() + 1 >= Map.getMapSize()) ? getCoordX() : getCoordX() + 1][getCoordY()] == 2) {
             System.out.println("Encountered a monster!\nFight or Run!");
             choice = console.nextLine().toLowerCase();
             while ("fight" != choice.intern() && "run" != choice.intern()) {
@@ -312,15 +374,39 @@ public class Hero {
             }
             if ("fight".equals(choice)) {
                 battleOutcome();
-                x = x - 1;
+                x = x + 1;
             }
             else
                 choiceRun();
         }
-        else if((x - 1) == -1)
+        else if((x + 1) == Map.getMapSize())
             Menu.winRound(); 
         else
-            x = x - 1;
+            x = x + 1;
+        Map.assignHero(Hero.getCoordX(), Hero.getCoordY());
+    }
+
+    public static void movementLeftGUI() {
+        Map.unAssignHero(getCoordX(), getCoordY());
+        if (Map.MapLayout[getCoordX()][(getCoordY() - 1) == -1 ? getCoordY() : getCoordY() - 1] == 2) {
+            System.out.println("Encountered a monster!\nFight or Run!");
+            choice = console.nextLine().toLowerCase();
+            while ("fight" != choice.intern() && "run" != choice.intern()) {
+                System.out.println("Incorrect command!\nChoose Fight or Run!");
+                choice = console.nextLine().toLowerCase();
+            }
+            if ("fight".equals(choice)) {
+                battleOutcome();
+                y = y - 1;
+            }
+            else
+                choiceRun();
+        }
+        else if((y - 1) == -1)
+            Menu.winRound(); 
+        else
+            y = y - 1;
+        Map.assignHero(Hero.getCoordX(), Hero.getCoordY());
     }
 
     public static void movement() {
