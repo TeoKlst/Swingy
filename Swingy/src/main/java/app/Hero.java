@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import gui.CreateMenu;
+import gui.GameMenu;
 
 public class Hero {
     protected static String Name;
@@ -59,6 +60,13 @@ public class Hero {
 
     public static int getCoordY() {
         return (y);
+    }
+
+    public static void getStatsGUI() {
+        GameMenu.terminalArea.setText("Your Stats:" + "\nName:" + Name + "\nClass:" + Class + "\nLevel:" + Level + "\nExperience"
+                + Experience + "\nExperienceCap" + ExperienceCap + "\nAttack" + Attack + "\nDefense" + Defense
+                + "\nHitPoints" + HitPoints + "\nCritChance" + CritChance + "\nMagicDmg" + MagicDmg + "\nBleedDmg"
+                + BleedDmg + "\nSaved stats" + Artifact.savedAttack + Artifact.savedDefense + Artifact.savedHitPoints);
     }
 
     public static void getStats() {
@@ -291,6 +299,28 @@ public class Hero {
             System.out.println("* * WOW you level'd up! * *");
             statsLevelUp();
         }
+    }
+
+    public static void movementUpGUI() {
+        Map.unAssignHero(getCoordX(), getCoordY());
+        if (Map.MapLayout[(getCoordX() - 1 == -1) ? 0 : getCoordX() - 1][getCoordY()] == 2) {
+            System.out.println("Encountered a monster!\nFight or Run!");
+            choice = console.nextLine().toLowerCase();
+            while ("fight" != choice.intern() && "run" != choice.intern()) {
+                System.out.println("Incorrect command!\nChoose Fight or Run!");
+                choice = console.nextLine().toLowerCase();
+            }
+            if ("fight".equals(choice)) {
+                battleOutcome();
+                x = x - 1;
+            }
+            else
+                choiceRun();
+        }
+        else if((x - 1) == -1)
+            Menu.winRound(); 
+        else
+            x = x - 1;
     }
 
     public static void movement() {

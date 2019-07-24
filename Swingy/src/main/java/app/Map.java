@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import app.Hero;
 import app.Villains;
+import gui.GameMenu;
 import app.Actions;
 import app.Coordinates;
 
@@ -35,6 +36,11 @@ public class Map {
     public static void mapGeneration() {
         MapSize = getMapSize();
         MapLayout = new int[MapSize][MapSize];
+    }
+
+    public static void mapDisplayGUI() {
+        GameMenu.mapArea.setText(Arrays.deepToString(MapLayout).replace("], ", "]\n").replace("[[", "[").replace("]]", "]")
+                .replace(", ", " ").replace("1", "P").replace("2", "M").replace("0", "-"));
     }
 
     public static void mapDisplay() {

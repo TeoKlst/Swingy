@@ -37,6 +37,7 @@ public class MainMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (!HeroSave.checkSaveFile()) {
                     IntroText.setText("There seem to be no saved games! Please create a hero.");
+                    loadButton.setEnabled(false);
                 }
                 else {
                     LoadMenu loadMenu = new LoadMenu();

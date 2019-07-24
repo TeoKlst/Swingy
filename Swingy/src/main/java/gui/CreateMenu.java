@@ -5,6 +5,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import app.Hero;
+import app.HeroSave;
 import app.Map;
 import app.Villains;
 
@@ -73,6 +74,7 @@ public class CreateMenu extends JFrame {
             }
         });
 
+        //SELECTING CLASS FAILS
         class ComboItem {
             private String key;
             private String value;
