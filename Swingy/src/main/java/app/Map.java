@@ -33,6 +33,16 @@ public class Map {
         return MapSize = (getMapLevel() - 1) * 5 + 10 - (getMapLevel() % 2);
     }
 
+    public static int tempMapSize() {
+        int temp1;
+        int temp2 = getMapSize();
+        if (((MapLayout[0].length) != getMapSize()) ) {
+            return temp1 = ((getMapLevel() - 1) - 1) * 5 + 10 - ((getMapLevel() - 1) % 2);
+        }
+        else
+            return temp2;
+    }
+
     public static void mapGeneration() {
         MapSize = getMapSize();
         MapLayout = new int[MapSize][MapSize];

@@ -5,11 +5,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+import javax.validation.constraints.NotNull;
+
 import gui.AttackRunMenu;
 import gui.CreateMenu;
 import gui.GameMenu;
 
 public class Hero {
+    // @NotNull (message = "Not nell");
     protected static String Name;
     protected static String Class;
     protected static int Level;
@@ -25,6 +29,7 @@ public class Hero {
     private static List<String> listHero = new LinkedList<String>();
     protected static int x;
     protected static int y;
+    public static AttackRunMenu attackRunMenu = null;
 
     protected Hero(String Name, String Class, int Level, int Experience, int ExperienceCap, int Attack, int Defense,
             int HitPoints, int CritChance, int MagicDmg, int BleedDmg, Coordinates Coordinates) {
@@ -232,6 +237,30 @@ public class Hero {
         return OutCome;
     }
 
+    public static void choiceRunGUI() {
+        boolean OutCome =  Math.random() < 0.5;
+        if (OutCome) {
+            GameMenu.terminalArea.setText("You ran away successfully!");
+            // GameMenu.terminalArea.append("You ran away successfully!");
+        }
+        else {
+            GameMenu.terminalArea.setText("Failed to run away!\nNow you have to fight!");
+            battleOutcomeGUI();
+            if (Villains.HitPoints <= 0) {
+                if ("up".equals(AttackRunMenu.attackRunDirectionTemp))
+                    x = x - 1;
+                if ("right".equals(AttackRunMenu.attackRunDirectionTemp))
+                    y = y + 1;
+                if ("down".equals(AttackRunMenu.attackRunDirectionTemp))
+                    x = x + 1;
+                if ("left".equals(AttackRunMenu.attackRunDirectionTemp))
+                    y = y - 1;
+                Map.assignHero(Hero.getCoordX(), Hero.getCoordY());
+                Map.mapDisplayGUI();
+            }
+        }
+    }
+
     public static void choiceRun() {
         boolean OutCome =  Math.random() < 0.5;
         if (OutCome) {
@@ -250,6 +279,35 @@ public class Hero {
                 if (Map.Direction.equals("left"))
                     y = y - 1;
             }
+        }
+    }
+
+    public static void battleOutcomeGUI() {
+        String append;
+        StringBuilder battleReport = new StringBuilder();
+        int fullDamage = (Attack + MagicDmg + BleedDmg);
+        while (Villains.getHitPoints() > 0 && HitPoints > 0) {
+            //CritChance Ignored
+            Villains.HitPoints = Villains.HitPoints - (((Villains.Defense > Attack) ? 0 : Attack - Villains.Defense) + MagicDmg + BleedDmg);
+            append = ("You attacked for " + fullDamage + " damage!\n" + Villains.Name + Villains.Title + " has " + Villains.HitPoints + " hp left.");
+            battleReport.append(append);
+            battleReport.append("\n");
+            if (Villains.getHitPoints() <= 0)
+                break;
+            HitPoints = HitPoints - ((Villains.Attack <= Defense) ? 0 : Villains.Attack - Defense);
+            append = (Villains.Name + Villains.Title + " has attacked you for " + Villains.Attack + "\nYou have " + HitPoints + " hp left.");
+            battleReport.append(append);
+            battleReport.append("\n");
+        }
+        if (Villains.getHitPoints() <= 0) {
+            append = ("You have killed " + Villains.Name + Villains.Title);
+            battleReport.append(append);
+            battleReport.append("\n");
+            Villains.villainDeathGUI();
+            GameMenu.terminalArea.setText(battleReport.toString());
+        }
+        else {
+            heroDie();
         }
     }
 
@@ -305,31 +363,37 @@ public class Hero {
     public static void attackRunGUI() {
         Map.unAssignHero(getCoordX(), getCoordY());
         if ("up".equals(AttackRunMenu.attackRunDirection)) {
-            battleOutcome();
+            battleOutcomeGUI();
             x = x - 1;
         }
         else if ("right".equals(AttackRunMenu.attackRunDirection)) {
-            battleOutcome();
-            x = x - 1;
+            battleOutcomeGUI();
+            y = y + 1;
         }
         else if ("down".equals(AttackRunMenu.attackRunDirection)) {
-            battleOutcome();
-            x = x - 1;
+            battleOutcomeGUI();
+            x = x + 1;
         }
         else if ("left".equals(AttackRunMenu.attackRunDirection)) {
-            battleOutcome();
-            x = x - 1;
+            battleOutcomeGUI();
+            y = y - 1;
         }
         else
-            choiceRun();
+            choiceRunGUI();
         Map.assignHero(Hero.getCoordX(), Hero.getCoordY());
     }
 
     public static void movementUpGUI() {
         Map.unAssignHero(getCoordX(), getCoordY());
         if (Map.MapLayout[(getCoordX() - 1 == -1) ? 0 : getCoordX() - 1][getCoordY()] == 2) {
-            AttackRunMenu attackRunMenu = new AttackRunMenu();
-            attackRunMenu.setVisible(true);
+            if (attackRunMenu == null){
+                attackRunMenu = new AttackRunMenu();
+                attackRunMenu.setVisible(true);
+                Villains.villainStats();
+                AttackRunMenu.monsterLabel.setText("You have encountered " + Villains.Name + Villains.Title);
+            }
+            else
+                attackRunMenu.setVisible(true);
             AttackRunMenu.attackRunDirection = "up";
         }
         else if((x - 1) == -1)
@@ -341,22 +405,18 @@ public class Hero {
 
     public static void movementRightGUI() {
         Map.unAssignHero(getCoordX(), getCoordY());
-        if (Map.MapLayout[getCoordX()][(getCoordY() + 1) >= Map.getMapSize() ? 0 : getCoordY() + 1] == 2) {
-            AttackRunMenu attackRunMenu = new AttackRunMenu();
-            attackRunMenu.setVisible(true);
-            choice = console.nextLine().toLowerCase();
-            while ("fight" != choice.intern() && "run" != choice.intern()) {
-                System.out.println("Incorrect command!\nChoose Fight or Run!");
-                choice = console.nextLine().toLowerCase();
-            }
-            if ("fight".equals(choice)) {
-                battleOutcome();
-                y = y + 1;
+        if (Map.MapLayout[getCoordX()][(getCoordY() + 1) >= Map.tempMapSize() ? getCoordY() : getCoordY() + 1] == 2) {
+            if (attackRunMenu == null){
+                attackRunMenu = new AttackRunMenu();
+                attackRunMenu.setVisible(true);
+                Villains.villainStats();
+                AttackRunMenu.monsterLabel.setText("You have encountered " + Villains.Name + Villains.Title);
             }
             else
-                choiceRun();
+                attackRunMenu.setVisible(true);
+            AttackRunMenu.attackRunDirection = "right";
         }
-        else if((y + 1) == Map.getMapSize())
+        else if((y + 1) == Map.tempMapSize())
             Menu.winRound(); 
         else
             y = y + 1;
@@ -365,21 +425,18 @@ public class Hero {
 
     public static void movementDownGUI() {
         Map.unAssignHero(getCoordX(), getCoordY());
-        if (Map.MapLayout[(getCoordX() + 1 >= Map.getMapSize()) ? getCoordX() : getCoordX() + 1][getCoordY()] == 2) {
-            System.out.println("Encountered a monster!\nFight or Run!");
-            choice = console.nextLine().toLowerCase();
-            while ("fight" != choice.intern() && "run" != choice.intern()) {
-                System.out.println("Incorrect command!\nChoose Fight or Run!");
-                choice = console.nextLine().toLowerCase();
-            }
-            if ("fight".equals(choice)) {
-                battleOutcome();
-                x = x + 1;
+        if (Map.MapLayout[(getCoordX() + 1 >= Map.tempMapSize()) ? getCoordX() : getCoordX() + 1][getCoordY()] == 2) {
+            if (attackRunMenu == null){
+                attackRunMenu = new AttackRunMenu();
+                attackRunMenu.setVisible(true);
+                Villains.villainStats();
+                AttackRunMenu.monsterLabel.setText("You have encountered " + Villains.Name + Villains.Title);
             }
             else
-                choiceRun();
+                attackRunMenu.setVisible(true);
+            AttackRunMenu.attackRunDirection = "down";
         }
-        else if((x + 1) == Map.getMapSize())
+        else if((x + 1) == Map.tempMapSize())
             Menu.winRound(); 
         else
             x = x + 1;
@@ -389,18 +446,15 @@ public class Hero {
     public static void movementLeftGUI() {
         Map.unAssignHero(getCoordX(), getCoordY());
         if (Map.MapLayout[getCoordX()][(getCoordY() - 1) == -1 ? getCoordY() : getCoordY() - 1] == 2) {
-            System.out.println("Encountered a monster!\nFight or Run!");
-            choice = console.nextLine().toLowerCase();
-            while ("fight" != choice.intern() && "run" != choice.intern()) {
-                System.out.println("Incorrect command!\nChoose Fight or Run!");
-                choice = console.nextLine().toLowerCase();
-            }
-            if ("fight".equals(choice)) {
-                battleOutcome();
-                y = y - 1;
+            if (attackRunMenu == null){
+                attackRunMenu = new AttackRunMenu();
+                attackRunMenu.setVisible(true);
+                Villains.villainStats();
+                AttackRunMenu.monsterLabel.setText("You have encountered " + Villains.Name + Villains.Title);
             }
             else
-                choiceRun();
+                attackRunMenu.setVisible(true);
+            AttackRunMenu.attackRunDirection = "left";
         }
         else if((y - 1) == -1)
             Menu.winRound(); 
@@ -432,7 +486,7 @@ public class Hero {
                 x = x - 1;
         }
         if (Map.Direction.equals("right")) {
-            if (Map.MapLayout[getCoordX()][(getCoordY() + 1) >= Map.getMapSize() ? 0 : getCoordY() + 1] == 2) {
+            if (Map.MapLayout[getCoordX()][(getCoordY() + 1) >= Map.tempMapSize() ? getCoordY() : getCoordY() + 1] == 2) {
                 System.out.println("Encountered a monster!\nFight or Run!");
                 choice = console.nextLine().toLowerCase();
                 while ("fight" != choice.intern() && "run" != choice.intern()) {
@@ -446,13 +500,13 @@ public class Hero {
                 else
                     choiceRun();
             }
-            else if((y + 1) == Map.getMapSize())
+            else if((y + 1) == Map.tempMapSize())
                 Menu.winRound(); 
             else
                 y = y + 1;
         }
         if (Map.Direction.equals("down")) {
-            if (Map.MapLayout[(getCoordX() + 1 >= Map.getMapSize()) ? getCoordX() : getCoordX() + 1][getCoordY()] == 2) {
+            if (Map.MapLayout[(getCoordX() + 1 >= Map.tempMapSize()) ? getCoordX() : getCoordX() + 1][getCoordY()] == 2) {
                 System.out.println("Encountered a monster!\nFight or Run!");
                 choice = console.nextLine().toLowerCase();
                 while ("fight" != choice.intern() && "run" != choice.intern()) {
@@ -466,7 +520,7 @@ public class Hero {
                 else
                     choiceRun();
             }
-            else if((x + 1) == Map.getMapSize())
+            else if((x + 1) == Map.tempMapSize())
                 Menu.winRound(); 
             else
                 x = x + 1;

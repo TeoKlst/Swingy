@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import gui.ArtifactMenu;
+
 public class Artifact {
     protected static String     Name;
     protected static String     Rarity;
@@ -159,6 +161,24 @@ public class Artifact {
             HitPoints = getHitPoints();
         }
         
+    }
+
+    public static void getArtifactStatsGUI() {
+        if ("weapon".equals(Type)) {
+            ArtifactMenu.ArtifactLabel.setText("Stats-> +" + Attack + "attack");
+            if ((Hero.Attack - Attack) != savedAttack)
+                ArtifactMenu.ArtifactStats.setText("Current equiped artifact stats -> +" + (Hero.Attack - savedAttack) + "attack");
+        }
+        if ("armor".equals(Type)) {
+            ArtifactMenu.ArtifactLabel.setText("Stats-> +" + Defense + "defense");
+            if ((Hero.Defense - Defense) != savedDefense)
+                ArtifactMenu.ArtifactStats.setText("Current equiped artifact stats -> +" + (Hero.Defense - savedDefense) + "defense");
+        }
+        if ("helm".equals(Type)) {
+            ArtifactMenu.ArtifactLabel.setText("Stats-> +" + HitPoints + "hp");
+            if ((Hero.HitPoints - HitPoints) != savedHitPoints)
+                ArtifactMenu.ArtifactStats.setText("Current equiped artifact stats -> +" + (Hero.HitPoints - savedHitPoints) + "hp");
+        }
     }
 
     //If artifact is equiped displaying incorrectly(When no artifact is equiped)

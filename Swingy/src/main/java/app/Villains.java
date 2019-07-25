@@ -6,7 +6,11 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javax.swing.JOptionPane;
+
 import app.Map;
+import gui.ArtifactMenu;
+import gui.GameMenu;
 
 public class Villains {
     protected static String        Name;
@@ -84,9 +88,30 @@ public class Villains {
     }
 
     public static boolean itemDropRate() {
-        boolean OutCome = false;
-        // boolean OutCome =  Math.random() < 0.5;
+        boolean OutCome =  Math.random() < 0.5;
         return OutCome;   
+    }
+
+    public static void equipDropGUI() {
+        if ("equip".equals(ArtifactMenu.choice)) {
+            Artifact.unEquipArtifact();
+            Artifact.equipArtifact();
+            GameMenu.terminalArea.setText("You have equiped the artifact!");
+        }
+        else
+            GameMenu.terminalArea.setText("You have droped the artifact.");
+    }
+
+    public static void villainDeathGUI() {
+        Hero.expAdd(250 * Level);
+        if (itemDropRate()) {
+            Artifact.createArtifact();
+            ArtifactMenu artifactMenu = new ArtifactMenu();
+            artifactMenu.setVisible(true);
+            Artifact.getArtifactStatsGUI();
+            ArtifactMenu.IntroText.setText("The enemy droped a " + Artifact.Rarity + " " +
+            Artifact.Name + " " + Artifact.Type);
+        }
     }
 
     public static void villainDeath() {

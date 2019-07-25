@@ -1,6 +1,9 @@
 package gui;
 
 import javax.swing.*;
+
+import app.Villains;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,25 +12,55 @@ public class ArtifactMenu extends JFrame {
     private JPanel MainWindow;
     private JButton equipButton;
     private JButton dropButton;
-    private JLabel IntroText;
-    private JLabel ArtifactLabel;
-    private JLabel ArtifactStats;
-
+    public static JLabel IntroText;
+    public static JLabel ArtifactLabel;
+    public static JLabel ArtifactStats;
+    public static String choice;
+    
     public ArtifactMenu() {
         add(MainWindow);
         setTitle("Swingy-App ArtifactMenu");
-        setSize(250, 250);
+        setSize(500, 250);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        GameMenu.downButton.setEnabled(false);
+        GameMenu.leftButton.setEnabled(false);
+        GameMenu.rightButton.setEnabled(false);
+        GameMenu.upButton.setEnabled(false);
+        GameMenu.saveButton.setEnabled(false);
+        GameMenu.loadButton.setEnabled(false);
+        GameMenu.closeButton.setEnabled(false);
+        GameMenu.statsButton.setEnabled(false);
+
         equipButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                choice = "equip";
+                Villains.equipDropGUI();
+                GameMenu.downButton.setEnabled(true);
+                GameMenu.leftButton.setEnabled(true);
+                GameMenu.rightButton.setEnabled(true);
+                GameMenu.upButton.setEnabled(true);
+                GameMenu.saveButton.setEnabled(true);
+                GameMenu.loadButton.setEnabled(true);
+                GameMenu.closeButton.setEnabled(true);
+                GameMenu.statsButton.setEnabled(true);
                 dispose();
             }
         });
 
         dropButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                choice = "drop";
+                Villains.equipDropGUI();
+                GameMenu.downButton.setEnabled(true);
+                GameMenu.leftButton.setEnabled(true);
+                GameMenu.rightButton.setEnabled(true);
+                GameMenu.upButton.setEnabled(true);
+                GameMenu.saveButton.setEnabled(true);
+                GameMenu.loadButton.setEnabled(true);
+                GameMenu.closeButton.setEnabled(true);
+                GameMenu.statsButton.setEnabled(true);
                 dispose();
             }
         });

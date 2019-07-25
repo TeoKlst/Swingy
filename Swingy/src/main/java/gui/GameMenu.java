@@ -13,14 +13,14 @@ import java.io.IOException;
 
 public class GameMenu extends JFrame {
     private JPanel MainWindow;
-    private JButton downButton;
-    private JButton leftButton;
-    private JButton rightButton;
-    private JButton upButton;
-    private JButton saveButton;
-    private JButton loadButton;
-    private JButton closeButton;
-    private JButton statsButton;
+    public static JButton downButton;
+    public static JButton leftButton;
+    public static JButton rightButton;
+    public static JButton upButton;
+    public static JButton saveButton;
+    public static JButton loadButton;
+    public static JButton closeButton;
+    public static JButton statsButton;
     private JPanel ButtonsPanel;
     private JPanel MapPanel;
     private JPanel TerminalPanel;
@@ -76,6 +76,7 @@ public class GameMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     HeroSave.saveHero();
+                    terminalArea.setText("Hero saved!");
                 } catch (IOException e1) {
                     e1.printStackTrace();
 				}

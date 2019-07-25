@@ -105,9 +105,10 @@ public class CreateMenu extends JFrame {
         ClassNameList.addItem(new ComboItem("Mage", "mage"));
         ClassNameList.addItem(new ComboItem("Warrior", "warrior"));
         ClassNameList.addItem(new ComboItem("Assasin", "assasin"));
-        
+
         Object item = ClassNameList.getSelectedItem();
         value = ((ComboItem)item).getValue();
+        // ClassNameList.setSelectedItem(value);
     }
 
     {

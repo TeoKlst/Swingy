@@ -14,7 +14,8 @@ public class AttackRunMenu extends JFrame {
     public static JButton attackButton;
     public static JButton runButton;
     public static String attackRunDirection;
-    private JLabel monsterLabel;
+    public static String attackRunDirectionTemp;
+    public static JLabel monsterLabel;
 
     public AttackRunMenu() {
         add(MainWindow);
@@ -26,18 +27,19 @@ public class AttackRunMenu extends JFrame {
         attackButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Hero.attackRunGUI();
-                //Not updating
-                //also artifacts are disabled
                 Map.mapDisplayGUI();
                 dispose();
+                Hero.attackRunMenu = null;
             }
         });
 
         runButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                attackRunDirectionTemp = attackRunDirection;
                 attackRunDirection = "run";
                 Hero.attackRunGUI();
                 dispose();
+                Hero.attackRunMenu = null;
             }
         });
     }
