@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 import app.Hero;
+import gui.LoadMenu;
 
 public class HeroSave {
     static String st;
@@ -19,6 +20,7 @@ public class HeroSave {
     static Scanner console = new Scanner(System.in);
     static int index;
     protected static String chosenHero;
+    public static int iCountGUI;
     
     public static boolean isInteger(String str) {
         if (str == null) {
@@ -77,6 +79,61 @@ public class HeroSave {
         pr.close();
         System.out.println("Hero saved successfully!");
     }
+
+
+    //LOAD BUTTON FUNCTION
+    public static void loadHeroGUI() throws IOException {
+        index = 1;
+        int iCount = 0;
+        Boolean successFind = false;
+        StringBuilder sb = new StringBuilder();
+        File inputFile = new File("Swingy/HeroSave.txt");
+        br = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
+        System.out.println("Heroes list: ");
+        while ((st = br.readLine()) != null) {
+            String[] parts = st.split("\\s+");
+            sb.append(st);
+            sb.append("\n");
+            System.out.println("-->" + parts[0] + " " + parts[1] + " the " + parts[2]);
+            iCount = iCount + 1;
+        }
+        br.close();
+        chosenHero = LoadMenu.value;
+        String[] parts = sb.toString().split("\\s+");
+        try {
+            if (Integer.parseInt(chosenHero) <= iCount) {
+                if (isInteger(chosenHero)) {
+                    while (index != Integer.parseInt(chosenHero) + 1) {
+                        int multiplier = (index - 1) * 15;
+                        if (chosenHero.equals(parts[multiplier])) {
+                            successFind = true;
+                        }
+                        index = index + 1;
+                    }
+                }
+                if (successFind) {
+                    index = index - 1;
+                    Hero.loadHero(parts[index * 15 - 14], parts[index * 15 - 13], Integer.parseInt(parts[index * 15 - 12]), Integer.parseInt(parts[index * 15 - 11]),
+                    Integer.parseInt(parts[index * 15 - 9]), Integer.parseInt(parts[index * 15 - 8]), Integer.parseInt(parts[index * 15 - 7]),
+                    Integer.parseInt(parts[index * 15 - 6]), Integer.parseInt(parts[index * 15 - 5]), Integer.parseInt(parts[index * 15 - 4]),
+                    Integer.parseInt(parts[index * 15 - 3]), Integer.parseInt(parts[index * 15 - 2]), Integer.parseInt(parts[index * 15 - 1]));
+                    Map.mapGeneration();
+                    Villains.villainGenerate();
+                    Map.assignHeroCL();
+                    System.out.println("Hero loaded successfully!");
+                }
+            }
+            else {
+                System.out.println("Hero doesn't exist or incorrect id chosen.");
+                loadHero();
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("! - Please enter an integer - !");
+            loadHero();
+            // e.printStackTrace();
+        }
+    }
+    //  FOR DROP DOWN MENU LOAD END
 
     public static void loadHero() throws IOException {
         index = 1;

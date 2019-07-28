@@ -21,6 +21,7 @@ public class CreateMenu extends JFrame {
     private JLabel IntoLabel;
     private JLabel HeroLabel;
     public static String value;
+    public static Object item;
 
     public CreateMenu() {
         add(MainWindow);
@@ -56,26 +57,7 @@ public class CreateMenu extends JFrame {
             }
           });
 
-        createButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (textField1.getText().equals("")) {
-                    IntoLabel.setText("Cannot create with hero with no name.");
-                    createButton.setEnabled(false);
-                }
-                else {
-                    Hero.createHeroGUI();
-                    Map.mapGeneration();
-                    Villains.villainGenerate();
-                    Map.assignHeroCL();
-                    GameMenu gameMenu = new GameMenu();
-                    gameMenu.setVisible(true);
-                    dispose();
-                }
-            }
-        });
-
-        //SELECTING CLASS FAILS
-        class ComboItem {
+          class ComboItem {
             private String key;
             private String value;
 
@@ -106,9 +88,28 @@ public class CreateMenu extends JFrame {
         ClassNameList.addItem(new ComboItem("Warrior", "warrior"));
         ClassNameList.addItem(new ComboItem("Assasin", "assasin"));
 
-        Object item = ClassNameList.getSelectedItem();
-        value = ((ComboItem)item).getValue();
-        // ClassNameList.setSelectedItem(value);
+        createButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                item = ClassNameList.getSelectedItem();
+                value = ((ComboItem)item).getValue();
+                if (textField1.getText().equals("")) {
+                    IntoLabel.setText("Cannot create with hero with no name.");
+                    createButton.setEnabled(false);
+                }
+                else {
+                    Hero.createHeroGUI();
+                    Map.mapGeneration();
+                    Villains.villainGenerate();
+                    Map.assignHeroCL();
+                    GameMenu gameMenu = new GameMenu();
+                    gameMenu.setVisible(true);
+                    dispose();
+                }
+            }
+        });
+
+        // item = ClassNameList.getSelectedItem();
+        // value = ((ComboItem)item).getValue();
     }
 
     {

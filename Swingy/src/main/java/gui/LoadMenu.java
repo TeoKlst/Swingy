@@ -1,15 +1,32 @@
 package gui;
 
 import javax.swing.*;
+
+import app.HeroSave;
+import app.Map;
+import app.Villains;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 
 public class LoadMenu extends JFrame {
     private JPanel MainWindow;
     private JButton loadButton;
     private JComboBox HerosNameList;
     private JLabel HeroListLabel;
+    private JComboBox heroLoadComboBox;
+    public static String saveTitle;
+    public static String value;
+    public static Object item;
+    public static int iCountGUI;
+    static String st;
+    static BufferedReader br;
 
     public LoadMenu() {
         add(MainWindow);
@@ -18,19 +35,67 @@ public class LoadMenu extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        String[] bookTitles = new String[]{"Effective Java", "Head First Java",
-                "Thinking in Java", "Java for Dummies"};
+        class ComboItem {
+            private String key;
+            private String value;
 
-        HerosNameList = new JComboBox(bookTitles);
+            public ComboItem(String key, String value)
+            {
+                this.key = key;
+                this.value = value;
+            }
 
-// add to the parent container (e.g. a JFrame):
+            @Override
+            public String toString()
+            {
+                return key;
+            }
 
-// get the selected item:
-        String selectedBook = (String) HerosNameList.getSelectedItem();
-        System.out.println("You seleted the book: " + selectedBook);
+            public String getKey()
+            {
+                return key;
+            }
+
+            public String getValue()
+            {
+                return value;
+            }
+        }
+
+        try {
+        iCountGUI = 0;
+        int index = 0;
+        StringBuilder sb = new StringBuilder();
+        File inputFile = new File("Swingy/HeroSave.txt");
+        br = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
+        while ((st = br.readLine()) != null) {
+            iCountGUI = iCountGUI + 1;
+            index = iCountGUI;
+            String[] parts = st.split("\\s+");
+            sb.append(st);
+            sb.append("\n");
+            LoadMenu.saveTitle = (parts[0] + " " + parts[1] + " the " + parts[2]);
+            heroLoadComboBox.addItem(new ComboItem(saveTitle, Integer.toString(index)));
+        }
+        br.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
         loadButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                item = heroLoadComboBox.getSelectedItem();
+                value = ((ComboItem)item).getValue();
+                System.out.println(value);
+                try {
+                HeroSave.loadHeroGUI();
+                } catch (IOException b){
+                    b.printStackTrace();
+                }
+                GameMenu gameMenu = new GameMenu();
+                gameMenu.setVisible(true);
+                gameMenu.terminalArea.setText("Hero loaded successfully!");
+                dispose();
             }
         });
     }
@@ -59,13 +124,13 @@ public class LoadMenu extends JFrame {
         MainWindow.add(spacer1, new com.intellij.uiDesigner.core.GridConstraints(3, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
         final com.intellij.uiDesigner.core.Spacer spacer2 = new com.intellij.uiDesigner.core.Spacer();
         MainWindow.add(spacer2, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
-        HerosNameList = new JComboBox();
-        MainWindow.add(HerosNameList, new com.intellij.uiDesigner.core.GridConstraints(1, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final com.intellij.uiDesigner.core.Spacer spacer3 = new com.intellij.uiDesigner.core.Spacer();
         MainWindow.add(spacer3, new com.intellij.uiDesigner.core.GridConstraints(2, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
         loadButton = new JButton();
         loadButton.setText("Load");
         MainWindow.add(loadButton, new com.intellij.uiDesigner.core.GridConstraints(3, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        heroLoadComboBox = new JComboBox();
+        MainWindow.add(heroLoadComboBox, new com.intellij.uiDesigner.core.GridConstraints(1, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

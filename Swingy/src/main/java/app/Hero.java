@@ -13,7 +13,7 @@ import gui.CreateMenu;
 import gui.GameMenu;
 
 public class Hero {
-    // @NotNull (message = "Not nell");
+    // @NotNull (message = "Not null");
     protected static String Name;
     protected static String Class;
     protected static int Level;
@@ -355,6 +355,7 @@ public class Hero {
         System.out.println("Gained " + exp + "exp!");
         Experience = Experience + exp;
         if (Experience >= ExperienceCap) {
+            JOptionPane.showMessageDialog(null, "* * WOW you level'd up! * *");
             System.out.println("* * WOW you level'd up! * *");
             statsLevelUp();
         }
