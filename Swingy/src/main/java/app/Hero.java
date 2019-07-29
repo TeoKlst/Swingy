@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import gui.AttackRunMenu;
 import gui.CreateMenu;
 import gui.GameMenu;
+import gui.MainMenu;
 
 public class Hero {
     // @NotNull (message = "Not null");
@@ -30,6 +31,7 @@ public class Hero {
     protected static int x;
     protected static int y;
     public static AttackRunMenu attackRunMenu = null;
+    public static Boolean RunSuccess = true; 
 
     protected Hero(String Name, String Class, int Level, int Experience, int ExperienceCap, int Attack, int Defense,
             int HitPoints, int CritChance, int MagicDmg, int BleedDmg, Coordinates Coordinates) {
@@ -85,29 +87,28 @@ public class Hero {
     public static void createHeroGUI() {
         Name = CreateMenu.textField1.getText();
         Class = CreateMenu.value;
-        //Setting stats
         Level = 1;
         Experience = 0;
         ExperienceCap = (Level * 1000 + ((Level - 1) * (Level - 1)) * 450);
-        HitPoints = Level * 10;
+        HitPoints = Level * 5;
         if ("assasin".equals(Class)) {
             CritChance = 20;
             BleedDmg = 0;
             MagicDmg = 0;
-            Attack = 5;
+            Attack = 3;
             Defense = 1;
         } else if ("warrior".equals(Class)) {
             BleedDmg = 1;
             CritChance = 0;
             MagicDmg = 0;
-            Attack = 2;
-            Defense = 5;
+            Attack = 1;
+            Defense = 2;
         } else if ("mage".equals(Class)) {
-            MagicDmg = 3;
+            MagicDmg = 2;
             CritChance = 0;
             BleedDmg = 0;
             Attack = 1;
-            Defense = 2;
+            Defense = 0;
         } else if ("hacker".equals(Class)) {
             MagicDmg = 10;
             CritChance = 100;
@@ -151,20 +152,20 @@ public class Hero {
             CritChance = 20;
             BleedDmg = 0;
             MagicDmg = 0;
-            Attack = 5;
+            Attack = 3;
             Defense = 1;
         } else if ("warrior".equals(Class)) {
             BleedDmg = 1;
             CritChance = 0;
             MagicDmg = 0;
-            Attack = 2;
-            Defense = 5;
+            Attack = 1;
+            Defense = 2;
         } else if ("mage".equals(Class)) {
-            MagicDmg = 3;
+            MagicDmg = 2;
             CritChance = 0;
             BleedDmg = 0;
             Attack = 1;
-            Defense = 2;
+            Defense = 0;
         } else if ("hacker".equals(Class)) {
             MagicDmg = 10;
             CritChance = 100;
@@ -210,6 +211,20 @@ public class Hero {
                 + (Attack - Artifact.savedAttack) + " " + (Defense - Artifact.savedDefense) + " " + (HitPoints - Artifact.savedHitPoints);
     }
 
+    public static void heroDieGUI() {
+        GameMenu.downButton.setEnabled(false);
+        GameMenu.leftButton.setEnabled(false);
+        GameMenu.rightButton.setEnabled(false);
+        GameMenu.upButton.setEnabled(false);
+        GameMenu.saveButton.setText("Create");
+        // GameMenu.loadButton.setEnabled(false);
+        // GameMenu.closeButton.setEnabled(false);
+        GameMenu.statsButton.setEnabled(false);
+        // MainMenu mainMenu = new MainMenu();
+        // mainMenu.setVisible(true);
+        JOptionPane.showMessageDialog(null, "You have died! Create new hero or load from save file");
+    }
+
     public static void heroDie() {
         System.out.println("You have died!");
         System.out.println("Create new hero or load from save file");
@@ -244,7 +259,7 @@ public class Hero {
             // GameMenu.terminalArea.append("You ran away successfully!");
         }
         else {
-            GameMenu.terminalArea.setText("Failed to run away!\nNow you have to fight!");
+            RunSuccess = false;
             battleOutcomeGUI();
             if (Villains.HitPoints <= 0) {
                 if ("up".equals(AttackRunMenu.attackRunDirectionTemp))
@@ -258,6 +273,7 @@ public class Hero {
                 Map.assignHero(Hero.getCoordX(), Hero.getCoordY());
                 Map.mapDisplayGUI();
             }
+            RunSuccess = true;
         }
     }
 
@@ -286,6 +302,11 @@ public class Hero {
         String append;
         StringBuilder battleReport = new StringBuilder();
         int fullDamage = (Attack + MagicDmg + BleedDmg);
+        if (!RunSuccess) {
+            append = "Failed to run away!\nNow you have to fight!";
+            battleReport.append(append);
+            battleReport.append("\n");
+        }
         while (Villains.getHitPoints() > 0 && HitPoints > 0) {
             //CritChance Ignored
             Villains.HitPoints = Villains.HitPoints - (((Villains.Defense > Attack) ? 0 : Attack - Villains.Defense) + MagicDmg + BleedDmg);
@@ -307,7 +328,10 @@ public class Hero {
             GameMenu.terminalArea.setText(battleReport.toString());
         }
         else {
-            heroDie();
+            append = ("You Died!");
+            battleReport.append(append);
+            GameMenu.terminalArea.setText(battleReport.toString());
+            heroDieGUI();
         }
     }
 
@@ -338,17 +362,27 @@ public class Hero {
         Level = Level + 1;
         Experience = 0;
         ExperienceCap = (Level * 1000 + ((Level - 1) * (Level - 1)) * 450);
-        if (Class.equals("assasin"))
+        if (Class.equals("assasin")) {
+            Attack = Attack + 1;
             CritChance = CritChance + 10;
+        }
         if (Class.equals("warrior"))
             BleedDmg = BleedDmg + 1;
         if (Class.equals("mage"))
-            MagicDmg = MagicDmg + 2;
+            MagicDmg = MagicDmg + 1;
         Attack = Attack + 1;
-        Defense = Defense + 1;
-        HitPoints = Level * 10;
+        HitPoints = Level * 5;
         Artifact.preStatsSave();
         Artifact.levelEquipArtifact();
+    }
+
+    public static void expAddGUI(int exp) {
+        System.out.println("Gained " + exp + "exp!");
+        Experience = Experience + exp;
+        if (Experience >= ExperienceCap) {
+            JOptionPane.showMessageDialog(null, "* * WOW you level'd up! * *");
+            statsLevelUp();
+        }
     }
 
     public static void expAdd(int exp) {
@@ -398,7 +432,7 @@ public class Hero {
             AttackRunMenu.attackRunDirection = "up";
         }
         else if((x - 1) == -1)
-            Menu.winRound(); 
+            Menu.winRoundGUI(); 
         else
             x = x - 1;
         Map.assignHero(Hero.getCoordX(), Hero.getCoordY());
@@ -418,7 +452,7 @@ public class Hero {
             AttackRunMenu.attackRunDirection = "right";
         }
         else if((y + 1) == Map.tempMapSize())
-            Menu.winRound(); 
+            Menu.winRoundGUI(); 
         else
             y = y + 1;
         Map.assignHero(Hero.getCoordX(), Hero.getCoordY());
@@ -438,7 +472,7 @@ public class Hero {
             AttackRunMenu.attackRunDirection = "down";
         }
         else if((x + 1) == Map.tempMapSize())
-            Menu.winRound(); 
+            Menu.winRoundGUI(); 
         else
             x = x + 1;
         Map.assignHero(Hero.getCoordX(), Hero.getCoordY());
@@ -458,7 +492,7 @@ public class Hero {
             AttackRunMenu.attackRunDirection = "left";
         }
         else if((y - 1) == -1)
-            Menu.winRound(); 
+            Menu.winRoundGUI(); 
         else
             y = y - 1;
         Map.assignHero(Hero.getCoordX(), Hero.getCoordY());

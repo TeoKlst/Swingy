@@ -17,6 +17,7 @@ public class Artifact {
     protected static int        savedDefense;
     protected static int        HitPoints;
     protected static int        savedHitPoints;
+    protected static int        hpCap;
     static List<String>         listName = new ArrayList<String>();
     static List<String>         listRarity = new ArrayList<String>();
     static List<String>         listType = new ArrayList<String>();
@@ -45,7 +46,6 @@ public class Artifact {
         return random;
     }
 
-    //ADD RARITY RATES
     public static String getRarity() {
         listRarity.add("Common");
         listRarity.add("Rare");
@@ -56,8 +56,8 @@ public class Artifact {
     }
 
     public static String getType() {
-        listType.add("weapon");
-        listType.add("armor");
+        // listType.add("weapon");
+        // listType.add("armor");
         listType.add("helm");
         String random = listType.get(new Random().nextInt(listType.size()));
         return random;
@@ -163,6 +163,18 @@ public class Artifact {
         
     }
 
+    /*  
+        savedHitPoints <-- True Hp before artifact
+
+        Hero.Hitpoints <-- +- Flucuate according to dmg
+        
+        hpCap          <-- Cap of normal hp
+
+        -Hp resets with artifact equip
+        -Incorrect stat display when lost hp in fight
+        -On lvl up remaining hp addds to hp
+        Commented out other item types
+    */
     public static void getArtifactStatsGUI() {
         if ("weapon".equals(Type)) {
             ArtifactMenu.ArtifactLabel.setText("Stats-> +" + Attack + "attack");
@@ -175,13 +187,17 @@ public class Artifact {
                 ArtifactMenu.ArtifactStats.setText("Current equiped artifact stats -> +" + (Hero.Defense - savedDefense) + "defense");
         }
         if ("helm".equals(Type)) {
+            hpCap = HitPoints + savedHitPoints;
+            int hpCap2 = savedHitPoints;
             ArtifactMenu.ArtifactLabel.setText("Stats-> +" + HitPoints + "hp");
-            if ((Hero.HitPoints - HitPoints) != savedHitPoints)
-                ArtifactMenu.ArtifactStats.setText("Current equiped artifact stats -> +" + (Hero.HitPoints - savedHitPoints) + "hp");
+            if ((hpCap - hpCap2) != savedHitPoints) {
+                ArtifactMenu.ArtifactStats.setText("Current equiped artifact stats -> +" + (hpCap - (savedHitPoints)) + "hp");
+            }
+            else
+                ArtifactMenu.ArtifactStats.setText("Current equiped artifact stats -> +" + (0) + "hp");
         }
     }
 
-    //If artifact is equiped displaying incorrectly(When no artifact is equiped)
     public static void getArtifactStats() {
         if ("weapon".equals(Type)) {
             System.out.println("Stats-> +" + Attack + "attack");
@@ -199,7 +215,7 @@ public class Artifact {
                 System.out.println("Current equiped artifact stats -> +" + (Hero.HitPoints - savedHitPoints) + "hp");
         }
     }
-    //Error with equip
+
     public static void unEquipArtifact() {
         Hero.Attack = savedAttack;
         Hero.Defense = savedDefense;

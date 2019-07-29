@@ -68,10 +68,10 @@ public class Villains {
         int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
         Name = getName();
         Title = getTitle();
-        Level = (Map.getMapLevel() == 1) ? 1 : (Map.getMapLevel() + 1);
-        Attack = randomNum + 1;
-        Defense = randomNum = ThreadLocalRandom.current().nextInt(0, 5);;
-        HitPoints = 8;
+        Level = (Map.getMapLevel() == 1) ? 1 : (Map.getMapLevel());
+        Attack = randomNum + Level;
+        Defense = 0 + (Level / 2);
+        HitPoints = 5 * Level;
     }
 
     public static void villainGenerate() {
@@ -103,7 +103,7 @@ public class Villains {
     }
 
     public static void villainDeathGUI() {
-        Hero.expAdd(250 * Level);
+        Hero.expAddGUI(250 * Level);
         if (itemDropRate()) {
             Artifact.createArtifact();
             ArtifactMenu artifactMenu = new ArtifactMenu();

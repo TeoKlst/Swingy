@@ -74,12 +74,19 @@ public class GameMenu extends JFrame {
 
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                try {
-                    HeroSave.saveHero();
-                    terminalArea.setText("Hero saved!");
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-				}
+                if (saveButton.getText().equals("Create")) {
+                    CreateMenu createMenu = new CreateMenu();
+                    createMenu.setVisible(true);
+                    dispose();
+                }
+                else {
+                    try {
+                        HeroSave.saveHero();
+                        terminalArea.setText("Hero saved!");
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
             }
         });
 

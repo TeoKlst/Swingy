@@ -14,6 +14,8 @@ import app.Hero;
 import gui.LoadMenu;
 
 public class HeroSave {
+    final static String fileLocation = "Swingy/HeroSave.txt";
+    // final static String fileLocation = "src/main/java/app/HeroSave.txt";
     static String st;
     static PrintWriter pr;
     static BufferedReader br;
@@ -48,7 +50,7 @@ public class HeroSave {
 
     public static boolean checkSaveFile() {
         Boolean readresult = true;
-        File inputFile = new File("Swingy/HeroSave.txt");
+        File inputFile = new File(fileLocation);
         try {
             br = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
             if ((st = br.readLine()) == null) {
@@ -65,7 +67,7 @@ public class HeroSave {
 
     public static void saveHero() throws IOException {
         index = 1;
-        File inputFile = new File("Swingy/HeroSave.txt");
+        File inputFile = new File(fileLocation);
         br = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
         while ((st = br.readLine()) != null) {
             String[] parts = st.split("\\s+");
@@ -73,21 +75,19 @@ public class HeroSave {
                 index = index + 1;
         }
         br.close();
-        File outputFile = new File("Swingy/HeroSave.txt");
+        File outputFile = new File(fileLocation);
         pr = new PrintWriter(new FileWriter(outputFile, true));
         pr.println(index + " " + Hero.heroPrintable());
         pr.close();
         System.out.println("Hero saved successfully!");
     }
 
-
-    //LOAD BUTTON FUNCTION
     public static void loadHeroGUI() throws IOException {
         index = 1;
         int iCount = 0;
         Boolean successFind = false;
         StringBuilder sb = new StringBuilder();
-        File inputFile = new File("Swingy/HeroSave.txt");
+        File inputFile = new File(fileLocation);
         br = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
         System.out.println("Heroes list: ");
         while ((st = br.readLine()) != null) {
@@ -140,7 +140,7 @@ public class HeroSave {
         int iCount = 0;
         Boolean successFind = false;
         StringBuilder sb = new StringBuilder();
-        File inputFile = new File("Swingy/HeroSave.txt");
+        File inputFile = new File(fileLocation);
         br = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
         System.out.println("Heroes list: ");
         while ((st = br.readLine()) != null) {

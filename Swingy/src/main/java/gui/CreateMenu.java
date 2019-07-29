@@ -40,7 +40,7 @@ public class CreateMenu extends JFrame {
             public void insertUpdate(DocumentEvent e) {
               changed();
             }
-          
+            
             public void changed() {
                if (textField1.getText().contains("\t") || textField1.getText().contains(" ")){
                     IntoLabel.setText("Please choose a single worded name.");

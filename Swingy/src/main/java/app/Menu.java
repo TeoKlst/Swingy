@@ -2,6 +2,8 @@ package app;
 
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 public class Menu {
     static Scanner console = new Scanner(System.in);
     protected static Boolean    CL;
@@ -32,13 +34,19 @@ public class Menu {
         System.out.println(" -- Game Closed --");
     }
 
+    public static void winRoundGUI() {
+        Hero.expAdd(Map.getMapLevel() * 250);
+        roundwin = true;
+        JOptionPane.showMessageDialog(null, "YOU WON THE ROUND");
+        Map.mapGeneration();
+        Villains.villainGenerate();
+        Map.assignHeroCL();
+    }
+
     public static void winRound() {
-        int view;
         Hero.expAdd(Map.getMapLevel() * 250);
         System.out.println("YOU WON THE ROUND");
-        // System.out.println("WON THE ROUND\nReceived " + (view = Map.getMapLevel() * 250) + " map clear exp!");
         roundwin = true;
-        //Create new map
         System.out.println("- New Round -");
         Map.mapGeneration();
         Villains.villainGenerate();

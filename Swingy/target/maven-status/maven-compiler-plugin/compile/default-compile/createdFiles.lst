@@ -24,6 +24,7 @@ gui/MainMenu$1.class
 gui/GameMenu$1.class
 app/Hero.class
 gui/GameMenu$8.class
+gui/LoadMenu$1ComboItem.class
 gui/AttackRunMenu.class
 app/Villains.class
 gui/AttackRunMenu$1.class
