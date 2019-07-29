@@ -94,7 +94,7 @@ public class Villains {
 
     public static void equipDropGUI() {
         if ("equip".equals(ArtifactMenu.choice)) {
-            Artifact.unEquipArtifact();
+            Artifact.unEquipArtifactHitPoints();
             Artifact.equipArtifact();
             GameMenu.terminalArea.setText("You have equiped the artifact!");
         }
