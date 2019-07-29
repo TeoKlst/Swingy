@@ -1,4 +1,4 @@
-package app;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.JOptionPane;
 
-import app.Map;
+import view.Map;
 import gui.ArtifactMenu;
 import gui.GameMenu;
 

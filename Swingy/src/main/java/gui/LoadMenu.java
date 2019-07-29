@@ -2,9 +2,9 @@ package gui;
 
 import javax.swing.*;
 
-import app.HeroSave;
-import app.Map;
-import app.Villains;
+import controller.HeroSave;
+import view.Map;
+import model.Villains;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

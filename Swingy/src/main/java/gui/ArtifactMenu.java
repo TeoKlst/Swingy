@@ -2,7 +2,7 @@ package gui;
 
 import javax.swing.*;
 
-import app.Villains;
+import model.Villains;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

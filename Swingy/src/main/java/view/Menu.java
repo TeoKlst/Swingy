@@ -1,13 +1,17 @@
-package app;
+package view;
 
 import java.util.Scanner;
-
 import javax.swing.JOptionPane;
+
+import controller.HeroSave;
+import view.Map;
+import model.Hero;
+import model.Villains;
 
 public class Menu {
     static Scanner console = new Scanner(System.in);
-    protected static Boolean    CL;
-    protected static Boolean    GameState = true;
+    public static Boolean    CL;
+    public static Boolean    GameState = true;
     protected static String     buffer;
     protected static Boolean    roundwin;
 

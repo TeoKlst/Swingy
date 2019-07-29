@@ -1,7 +1,8 @@
-package app;
+package controller;
 
-import app.Map;
-import app.Hero;
+import view.Map;
+import view.Menu;
+import model.Hero;
 
 import java.io.IOException;
 
@@ -50,9 +51,5 @@ public class Actions {
         if("close".equals(Map.Direction.toLowerCase())) {
             Menu.closeGame();
         }
-    }
-
-    public static void assignHero(Coordinates coordinates) {
-        
     }
 }

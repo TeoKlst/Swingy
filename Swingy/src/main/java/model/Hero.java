@@ -1,4 +1,4 @@
-package app;
+package model;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -8,6 +8,9 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.validation.constraints.NotNull;
 
+import view.Map;
+import view.Menu;
+import controller.HeroSave;
 import gui.AttackRunMenu;
 import gui.CreateMenu;
 import gui.GameMenu;
@@ -28,8 +31,8 @@ public class Hero {
     protected static int BleedDmg;
     protected static Coordinates Coordinates;
     private static List<String> listHero = new LinkedList<String>();
-    protected static int x;
-    protected static int y;
+    public static int x;
+    public static int y;
     public static AttackRunMenu attackRunMenu = null;
     public static Boolean RunSuccess = true; 
 

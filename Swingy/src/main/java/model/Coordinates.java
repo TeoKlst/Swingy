@@ -1,4 +1,4 @@
-package app;
+package model;
 
 public class Coordinates {
     protected int X;

@@ -2,8 +2,8 @@ package gui;
 
 import javax.swing.*;
 
-import app.Hero;
-import app.Map;
+import model.Hero;
+import view.Map;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

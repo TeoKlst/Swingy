@@ -1,4 +1,4 @@
-package app;
+package controller;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,7 +10,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-import app.Hero;
+import model.Hero;
+import model.Villains;
+import view.Map;
 import gui.LoadMenu;
 
 public class HeroSave {

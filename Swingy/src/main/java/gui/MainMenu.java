@@ -2,7 +2,7 @@ package gui;
 
 import javax.swing.*;
 
-import app.HeroSave;
+import controller.HeroSave;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

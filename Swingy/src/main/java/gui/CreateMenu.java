@@ -4,10 +4,9 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import app.Hero;
-import app.HeroSave;
-import app.Map;
-import app.Villains;
+import model.Hero;
+import view.Map;
+import model.Villains;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
