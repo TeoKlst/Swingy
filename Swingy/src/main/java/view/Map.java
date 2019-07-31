@@ -1,13 +1,11 @@
 package view;
 
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.Scanner;
 
-import model.Hero;
-import model.Villains;
 import gui.GameMenu;
 import model.Coordinates;
+import model.Hero;
+import model.Villains;
 
 public class Map {
     public static int MapLayout[][];

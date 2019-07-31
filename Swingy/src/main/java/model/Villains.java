@@ -6,8 +6,6 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.swing.JOptionPane;
-
 import view.Map;
 import gui.ArtifactMenu;
 import gui.GameMenu;
@@ -19,7 +17,7 @@ public class Villains {
     protected static int           Attack;
     protected static int           Defense;
     protected static int           HitPoints;
-    protected Coordinates   Coordinates;
+    protected Coordinates          Coordinates;
     static List<String> listName = new ArrayList<String>();
     static List<String> listTitle = new ArrayList<String>();
     static Scanner console = new Scanner(System.in);

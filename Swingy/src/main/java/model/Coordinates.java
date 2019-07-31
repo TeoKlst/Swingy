@@ -1,6 +1,9 @@
 package model;
 
+import javax.validation.constraints.NotNull;
+
 public class Coordinates {
+    @NotNull(message = "Coords may not be null")
     protected int X;
     protected int Y;
 

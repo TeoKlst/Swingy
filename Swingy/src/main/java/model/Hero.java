@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
-import javax.validation.constraints.NotNull;
 
 import view.Map;
 import view.Menu;
@@ -14,10 +13,8 @@ import controller.HeroSave;
 import gui.AttackRunMenu;
 import gui.CreateMenu;
 import gui.GameMenu;
-import gui.MainMenu;
 
 public class Hero {
-    // @NotNull (message = "Not null");
     protected static String Name;
     protected static String Class;
     protected static int Level;
@@ -29,7 +26,7 @@ public class Hero {
     protected static int CritChance;
     protected static int MagicDmg;
     protected static int BleedDmg;
-    protected static Coordinates Coordinates;
+    protected static model.Coordinates Coordinates;
     private static List<String> listHero = new LinkedList<String>();
     public static int x;
     public static int y;

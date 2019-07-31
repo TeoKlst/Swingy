@@ -16,8 +16,8 @@ import view.Map;
 import gui.LoadMenu;
 
 public class HeroSave {
-    final static String fileLocation = "Swingy/HeroSave.txt";
-    // final static String fileLocation = "src/main/java/app/HeroSave.txt";
+    // final static String fileLocation = "Swingy/HeroSave.txt";
+    final static String fileLocation = "src/main/java/app/HeroSave.txt";
     static String st;
     static PrintWriter pr;
     static BufferedReader br;

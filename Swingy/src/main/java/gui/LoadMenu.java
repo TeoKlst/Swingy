@@ -66,7 +66,7 @@ public class LoadMenu extends JFrame {
         iCountGUI = 0;
         int index = 0;
         StringBuilder sb = new StringBuilder();
-        File inputFile = new File("Swingy/HeroSave.txt");
+        File inputFile = new File("src/main/java/app/HeroSave.txt");
         br = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
         while ((st = br.readLine()) != null) {
             iCountGUI = iCountGUI + 1;
